@@ -1,0 +1,42 @@
+---
+// Giới thiệu dịch vụ Di Trú Síp khéo léo cuối bài (sếp dặn 16/11/2026: vẫn giới thiệu dịch vụ để chuyển đổi, không giọng bán hàng).
+// Nội dung đổi theo chủ đề bài; link có UTM để đo khách đến từ blog.
+import { DTS } from '../lib/db';
+const { category, section, slug } = Astro.props as { category: string | null; section: string; slug: string };
+const utm = (path: string, c: string) => `${DTS}${path}?utm_source=cuocsongdaosip&utm_medium=blog&utm_campaign=${c}&utm_content=${slug}`;
+const wa = `https://wa.me/35794100091?text=${encodeURIComponent('Chào anh Cường, mình đọc bài trên blog Cuộc Sống Đảo Síp và muốn hỏi thêm.')}`;
+const kind = category === 'di-tru' ? 'di-tru' : category === 'bds' ? 'bds' : 'chung';
+const copy = {
+  'di-tru': {
+    h: 'Nếu bạn đang tính làm thẻ thường trú',
+    p: 'Nhà mình đi diện mua nhà và đã sống ở Paphos từ 2025. Mình cùng mấy anh em người Việt ở Síp có làm hồ sơ cho các gia đình đi diện này, báo một mức phí từ đầu. Bạn có thể tự xem trước chi phí cho gia đình mình, hoặc nhắn hỏi trực tiếp.',
+    a: [['Xem chi phí cho gia đình', utm('/chi-phi/', 'di-tru')], ['Nhắn hỏi mình', wa]],
+  },
+  bds: {
+    h: 'Muốn xem nhà tận nơi trước khi quyết?',
+    p: 'Mua nhà ở Síp, cái dễ sai nhất là mua đắt hoặc sai khu. Bên mình có đưa các gia đình đi xem thực tế vài ngày ở Paphos và Limassol, xem xong không mua cũng không sao.',
+    a: [['Chuyến khảo sát Síp', utm('/services/khao-sat-sip/', 'bds')], ['Nhắn hỏi mình', wa]],
+  },
+  chung: {
+    h: 'Đang tìm hiểu chuyện sang Síp sống?',
+    p: 'Ngoài blog, mình có làm app Di Trú Síp (miễn phí): tự đánh giá hồ sơ sơ bộ, xem dự toán chi phí và hướng dẫn an cư năm đầu. Cần hỏi riêng thì cứ nhắn mình.',
+    a: [['Tìm hiểu ở Di Trú Síp', utm('/', section)], ['Nhắn hỏi mình', wa]],
+  },
+}[kind];
+---
+<aside class="soft" aria-label="Giới thiệu dịch vụ Di Trú Síp">
+  <img src="https://yt3.ggpht.com/aWfQPuiGKlc4NY0nJGndMZUM9x_iJAfrmGO41JrX50SZr_dO_XCr-Lm_5--6teoBf-AaYJ4l=s96-c-k-c0x00ffffff-no-rj" alt="" width="44" height="44" />
+  <div>
+    <p class="h">{copy.h}</p>
+    <p>{copy.p}</p>
+    <p class="acts">{copy.a.map(([t, href], i) => <a class={i === 0 ? 'btn' : 'btn ghost'} href={href} rel="noopener" target="_blank">{t}</a>)}</p>
+  </div>
+</aside>
+<style>
+  .soft { display: grid; grid-template-columns: 44px 1fr; gap: 14px; background: var(--stone); border-radius: var(--r-lg); padding: 18px; margin: 32px 0 8px; }
+  .soft img { width: 44px; height: 44px; border-radius: 50%; }
+  .soft p { margin: 0 0 10px; font-size: 15.5px; }
+  .soft .h { font-family: var(--display); font-weight: 600; font-size: 19px; margin-bottom: 6px; }
+  .acts { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 0 !important; }
+  .acts .btn { padding: 9px 16px; font-size: 14.5px; }
+</style>

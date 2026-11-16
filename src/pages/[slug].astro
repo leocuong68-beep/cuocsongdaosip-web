@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PostRow from '../components/PostRow.astro';
+import SoftCta from '../components/SoftCta.astro';
 import { getPosts, CATS, SECTIONS, fmtDate, fixLinks, readMins, type Post } from '../lib/db';
 
 export async function getStaticPaths() {
@@ -40,6 +41,7 @@ const changed = item.updated_at.slice(0, 10) !== item.published_at.slice(0, 10);
     ) : item.cover_url && <img class="cover" src={item.cover_url} alt="" width="1200" height="675" />}
     <div class="prose" set:html={body} />
     {item.youtube_id && <p><a class="btn ghost" href={`https://www.youtube.com/watch?v=${item.youtube_id}`} rel="noopener" target="_blank">Xem và bình luận trên YouTube</a></p>}
+    <SoftCta category={item.category} section={item.section} slug={item.slug} />
     <p class="note">Bài viết là kinh nghiệm và thông tin tham khảo của mình tại thời điểm viết, không phải tư vấn pháp lý, thuế hay đầu tư. Thấy chỗ nào đã thay đổi, các bác các bạn nhắn mình để sửa nhé.</p>
   </article>
   {(related.length > 0 || vids.length > 0) && (
