@@ -1,0 +1,28 @@
+---
+import type { Ev } from '../lib/db';
+const { e } = Astro.props as { e: Ev };
+const d = new Date(e.starts_on + 'T12:00:00Z');
+const end = e.ends_on && e.ends_on !== e.starts_on ? new Date(e.ends_on + 'T12:00:00Z') : null;
+const dm = (x: Date) => `${x.getUTCDate()}/${x.getUTCMonth() + 1}`;
+const where = [...new Set([e.venue, e.city].filter(Boolean))].join(', ');
+---
+<article class="ev">
+  <div class="date" aria-hidden="true"><span class="d">{d.getUTCDate()}</span><span class="m">th {d.getUTCMonth() + 1}</span></div>
+  <div>
+    <h3>{e.source_url ? <a href={e.source_url} rel="noopener" target="_blank">{e.title}</a> : e.title}</h3>
+    <p class="meta">{dm(d)}{end && `–${dm(end)}`}/{(end ?? d).getUTCFullYear()}{e.time_label && `, ${e.time_label}`}{where && ` · ${where}`}{e.price_label && ` · ${e.price_label}`}</p>
+    {e.description && <p class="desc">{e.description}</p>}
+    {e.source_name && <p class="src">Nguồn: {e.source_name}</p>}
+  </div>
+</article>
+<style>
+  .ev { display: grid; grid-template-columns: 58px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .date { text-align: center; border: 1.5px solid var(--sea); border-radius: 12px; padding: 6px 0 5px; align-self: start; }
+  .d { display: block; font-family: var(--display); font-size: 24px; font-weight: 700; line-height: 1; color: var(--sea); }
+  .m { display: block; font-size: 12px; color: var(--muted); }
+  h3 { font-family: var(--text); font-weight: 500; font-size: 16.5px; line-height: 1.4; margin: 0 0 2px; }
+  h3 a { color: var(--ink); text-decoration: none; }
+  h3 a:hover { color: var(--sea); text-decoration: underline; }
+  .meta, .src { font-size: 13.5px; color: var(--muted); margin: 0; }
+  .desc { font-size: 15px; margin: 6px 0 4px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+</style>

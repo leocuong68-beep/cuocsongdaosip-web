@@ -1,0 +1,31 @@
+---
+// Thẻ bài có ảnh lớn, dùng cho bài nổi bật và hàng cuộn ngang.
+import { CATS, fmtDate, postHref, type Post } from '../lib/db';
+const { p, big = false } = Astro.props as { p: Post; big?: boolean };
+---
+<a class:list={['tile', { big }]} href={postHref(p)}>
+  <span class="img">
+    {p.cover_url && <img src={p.cover_url} alt="" loading={big ? 'eager' : 'lazy'} width="800" height="450" onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault')" />}
+    {p.youtube_id && <span class="play" aria-label="Video"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></span>}
+  </span>
+  <span class="meta">{p.category && CATS[p.category] && <span class="tag">{CATS[p.category]}</span>} {fmtDate(p.published_at)}</span>
+  <span class="t">{p.title}</span>
+  {big && <span class="ex">{p.excerpt}</span>}
+</a>
+<style>
+  .tile { display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--ink); }
+  .img { position: relative; display: block; border-radius: var(--r-lg); overflow: hidden; background: var(--stone); aspect-ratio: 16/9; }
+  .img img { width: 100%; height: 100%; object-fit: cover; }
+  .play { position: absolute; left: 12px; bottom: 12px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.95); display: grid; place-items: center; }
+  .play svg { width: 18px; fill: #C4302B; margin-left: 2px; }
+  .meta { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+  .t { font-family: var(--display); font-weight: 600; font-size: 19px; line-height: 1.25; font-variation-settings: 'opsz' 28; }
+  .tile:hover .t { color: var(--sea); }
+  .big .t { font-size: clamp(23px, 4.5vw, 32px); font-variation-settings: 'opsz' 72; }
+  @media (min-width: 900px) {
+    .big { display: grid; grid-template-columns: 1.35fr 1fr; column-gap: 32px; row-gap: 10px; align-content: start; }
+    .big .img { grid-row: 1 / span 4; }
+    .big .meta { margin-top: 6px; }
+  }
+  .ex { color: var(--muted); font-size: 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+</style>

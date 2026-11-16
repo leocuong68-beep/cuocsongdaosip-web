@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { getPosts, postHref } from '../lib/db';
+import { AZ_LIST, postsFor } from '../lib/az';
+const posts = (await getPosts()).filter((p) => p.section !== 'video');
+const vids = (await getPosts()).filter((p) => p.section === 'video');
+const letters = [...new Set(AZ_LIST.map((a) => a.letter))];
+---
+<Base title="Sổ tay A-Z cuộc sống ở Síp cho người Việt | Cuộc Sống Đảo Síp A-Z" description="Sổ tay A-Z cho người Việt ở Síp: an cư, bằng lái, chi phí sinh hoạt, ngân hàng, trường học, thuế, y tế GESY, quốc tịch, Schengen. Tra nhanh bài viết theo chủ đề." active="a-z">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="/">Trang chủ</a> / Sổ tay A-Z</p>
+    <h1>Sổ tay A-Z</h1>
+    <p class="muted" style="font-size:17px">Những việc người Việt mới sang Síp hay hỏi mình, xếp theo chữ cái. Bấm vào một chữ để nhảy tới.</p>
+    <nav class="jump" aria-label="Chữ cái">{letters.map((l) => <a href={`#${AZ_LIST.find((a) => a.letter === l)!.id}`}>{l}</a>)}</nav>
+    {letters.map((l) => (
+      <section class="letter">
+        <span class="L" aria-hidden="true">{l}</span>
+        <div>
+          {AZ_LIST.filter((a) => a.letter === l).map((a) => {
+            const list = postsFor(a, posts).slice(0, 6);
+            const v = postsFor(a, vids).slice(0, 2);
+            return (
+              <div class="entry" id={a.id}>
+                <h2>{a.href ? <a href={a.href}>{a.term}</a> : a.term}</h2>
+                <p class="muted">{a.line}</p>
+                {(list.length > 0 || v.length > 0) && <ul>{list.map((p) => <li><a href={postHref(p)}>{p.title}</a></li>)}{v.map((p) => <li><a href={postHref(p)}>Video: {p.title}</a></li>)}</ul>}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+  </div>
+  <style>
+    .jump { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 10px; }
+    .jump a { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 19px; color: var(--copper); }
+    .jump a:hover { background: var(--stone); }
+    .letter { display: grid; grid-template-columns: 56px 1fr; gap: 14px; border-top: 1px solid var(--line); padding-top: 18px; margin-top: 18px; }
+    .L { font-family: var(--display); font-weight: 700; font-size: 52px; line-height: .9; color: var(--copper); font-variation-settings: 'opsz' 144; position: sticky; top: 76px; align-self: start; }
+    .entry { margin-bottom: 22px; scroll-margin-top: 76px; }
+    .entry h2 { font-size: 22px; margin: 0 0 4px; }
+    .entry h2 a { color: var(--ink); }
+    .entry p { margin: 0 0 8px; }
+    .entry ul { margin: 0; padding-left: 18px; }
+    .entry li { margin: 4px 0; font-size: 15.5px; }
+  </style>
+</Base>

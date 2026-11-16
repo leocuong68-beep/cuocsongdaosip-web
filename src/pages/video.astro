@@ -1,0 +1,8 @@
+---
+import ListPage from '../components/ListPage.astro';
+import { bySection, SECTIONS } from '../lib/db';
+const posts = await bySection('video');
+---
+<ListPage title="Video Cường Đảo Síp: cuộc sống người Việt ở Síp | Cuộc Sống Đảo Síp A-Z" h1="Video" intro={SECTIONS.video.blurb + ' Video mới lên kênh sẽ tự có ở đây.'} description="Tổng hợp video kênh YouTube Cường Đảo Síp: một ngày ở Paphos, đi siêu thị, trường học, du lịch Ayia Napa, Troodos, định cư và nhà cửa ở Síp." posts={posts} active="video" grid>
+  <p><a class="btn ghost" href="https://www.youtube.com/@cuongdaosip?sub_confirmation=1" rel="noopener">Đăng ký kênh trên YouTube</a></p>
+</ListPage>

@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import EventItem from '../components/EventItem.astro';
+import PostRow from '../components/PostRow.astro';
+import { getEvents, bySection, SECTIONS } from '../lib/db';
+const today = new Date().toISOString().slice(0, 10);
+const all = await getEvents();
+const upcoming = all.filter((e) => (e.ends_on ?? e.starts_on) >= today).sort((a, b) => a.starts_on.localeCompare(b.starts_on));
+const past = all.filter((e) => (e.ends_on ?? e.starts_on) < today);
+const posts = await bySection('su-kien');
+---
+<Base title="Sự kiện, lễ hội ở Síp | Cuộc Sống Đảo Síp A-Z" description="Lịch sự kiện, lễ hội, chợ phiên ở Paphos, Limassol, Larnaca, Nicosia cho gia đình người Việt ở Síp: ngày giờ, địa điểm, giá vé, nguồn." active="su-kien">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="/">Trang chủ</a> / Sự kiện</p>
+    <h1>Sự kiện</h1>
+    <p class="muted" style="font-size:17px">{SECTIONS['su-kien'].blurb} Ngày giờ có thể đổi, bạn bấm vào tên sự kiện để xem trang của ban tổ chức trước khi đi.</p>
+    <h2 style="margin-top:28px">Sắp diễn ra</h2>
+    {upcoming.length ? upcoming.map((e) => <EventItem e={e} />) : <p class="muted">Mình đang gom lịch tháng tới. Bạn biết sự kiện nào hay cho gia đình người Việt thì nhắn mình qua <a href="https://www.facebook.com/groups/936624705450469" rel="noopener">nhóm Facebook</a> nhé.</p>}
+    {posts.length > 0 && <><h2 style="margin-top:36px">Bài viết về sự kiện</h2>{posts.map((p) => <PostRow p={p} />)}</>}
+    {past.length > 0 && <><h2 style="margin-top:36px">Đã diễn ra</h2><div class="past">{past.map((e) => <EventItem e={e} />)}</div></>}
+  </div>
+  <style>.past { opacity: .78; }</style>
+</Base>

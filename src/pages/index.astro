@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import PostRow from '../components/PostRow.astro';
+import PostTile from '../components/PostTile.astro';
+import EventItem from '../components/EventItem.astro';
+import { getPosts, getEvents, SECTIONS } from '../lib/db';
+import { AZ_LIST } from '../lib/az';
+const posts = await getPosts();
+const writing = posts.filter((p) => p.section !== 'video');
+const lead = writing[0];
+const news = posts.filter((p) => p.section === 'tin-tuc' && p.slug !== lead?.slug).slice(0, 5);
+const life = posts.filter((p) => p.section === 'kinh-nghiem' && p.slug !== lead?.slug).slice(0, 8);
+const videos = posts.filter((p) => p.section === 'video').slice(0, 8);
+const study = posts.filter((p) => p.section === 'hoc-tap').slice(0, 3);
+const today = new Date().toISOString().slice(0, 10);
+const events = await getEvents();
+const upcoming = events.filter((e) => (e.ends_on ?? e.starts_on) >= today).sort((a, b) => a.starts_on.localeCompare(b.starts_on)).slice(0, 4);
+const recentEv = upcoming.length ? upcoming : events.slice(0, 3);
+const letters = [...new Set(AZ_LIST.map((a) => a.letter))];
+---
+<Base title="Cuộc Sống Đảo Síp A-Z | Kinh nghiệm thực tế cho người Việt ở Síp" description="Blog cá nhân của Leo Cường ở Paphos: tin tức, giá cả, điện nước, trường học, bằng lái, học tiếng Hy Lạp, sự kiện và video về cuộc sống người Việt ở đảo Síp." active="home">
+  <section class="hello">
+    <div class="wrap">
+      <div class="who">
+        <img src="https://yt3.ggpht.com/aWfQPuiGKlc4NY0nJGndMZUM9x_iJAfrmGO41JrX50SZr_dO_XCr-Lm_5--6teoBf-AaYJ4l=s176-c-k-c0x00ffffff-no-rj" alt="Leo Cường" width="64" height="64" />
+        <p>Mình là <b>Leo Cường</b>. Cả nhà mình chuyển từ Sài Gòn sang sống ở Paphos từ tháng 9/2025. Ở đây mình ghi lại chuyện giá cả, giấy tờ, trường lớp, thi cử và chỗ chơi cuối tuần, đúng như nhà mình đã trải qua. <a href="/gioi-thieu/">Đọc thêm về mình</a></p>
+      </div>
+      <h1>Kinh nghiệm thực tế cho người Việt ở Síp</h1>
+    </div>
+  </section>
+
+  <div class="wrap">
+    {lead && <div class="lead"><PostTile p={lead} big /></div>}
+
+    <section class="az" aria-labelledby="az-h">
+      <div class="sec-head"><h2 id="az-h">Sổ tay A-Z</h2><a href="/a-z/">Xem cả sổ tay</a></div>
+      <p class="muted">Tra nhanh theo việc cần làm. Mỗi chữ cái là một nhóm chuyện người mới sang hay hỏi.</p>
+      <div class="rail">
+        {letters.map((l) => {
+          const items = AZ_LIST.filter((a) => a.letter === l);
+          return (
+            <a class="key" href={`/a-z/#${items[0].id}`}>
+              <span class="L">{l}</span>
+              <span class="terms">{items.map((a) => a.term).join(', ')}</span>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <div class="two">
+      <section aria-labelledby="news-h">
+        <div class="sec-head"><h2 id="news-h">Tin mới</h2><a href="/tin-tuc/">Tất cả tin</a></div>
+        {news.map((p) => <PostRow p={p} showCat={false} />)}
+      </section>
+      <section aria-labelledby="ev-h">
+        <div class="sec-head"><h2 id="ev-h">{upcoming.length ? 'Sắp diễn ra' : 'Sự kiện gần đây'}</h2><a href="/su-kien/">Lịch sự kiện</a></div>
+        {recentEv.map((e) => <EventItem e={e} />)}
+        {!upcoming.length && <p class="muted small">Mình đang cập nhật lịch tháng tới. Có sự kiện hay ở chỗ bạn thì nhắn mình nhé.</p>}
+      </section>
+    </div>
+
+    <section aria-labelledby="life-h">
+      <div class="sec-head"><h2 id="life-h">Kinh nghiệm sống</h2><a href="/kinh-nghiem/">Xem hết</a></div>
+      <div class="scroller">{life.map((p) => <div class="cell"><PostTile p={p} /></div>)}</div>
+    </section>
+
+    <section aria-labelledby="vid-h">
+      <div class="sec-head"><h2 id="vid-h">Video mới trên kênh</h2><a href="/video/">Tất cả video</a></div>
+      <div class="scroller">{videos.map((p) => <div class="cell"><PostTile p={p} /></div>)}</div>
+    </section>
+
+    <section class="learn" aria-labelledby="hoc-h">
+      <div class="box">
+        <h2 id="hoc-h">Học tiếng Hy Lạp, bằng lái, quốc tịch</h2>
+        <p>{SECTIONS['hoc-tap'].blurb} Khu Học có bài tiếng Hy Lạp mỗi ngày 30 phút, đang mở bản thử nghiệm cho bạn đọc đã đăng ký.</p>
+        <p><a class="btn" href="/hoc/">Vào Khu Học</a></p>
+      </div>
+      <div>{study.map((p) => <PostRow p={p} />)}</div>
+    </section>
+  </div>
+
+  <style>
+    .hello { background: var(--stone); padding: 22px 0 26px; }
+    .who { display: flex; gap: 14px; align-items: flex-start; max-width: 720px; }
+    .who img { width: 56px; height: 56px; border-radius: 50%; flex: none; border: 2px solid #fff; }
+    .who p { margin: 0; font-size: 15.5px; }
+    .hello h1 { margin: 20px 0 0; max-width: 16ch; }
+    .lead { margin-top: 26px; }
+
+    .az .muted { margin-top: -6px; }
+    .rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+    .key { scroll-snap-align: start; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px 16px; text-decoration: none; color: var(--ink); border-right: 1px solid var(--line); min-height: 132px; }
+    .key:hover { background: var(--stone); }
+    .L { font-family: var(--display); font-weight: 700; font-size: 54px; line-height: 1; color: var(--copper); font-variation-settings: 'opsz' 144; }
+    .terms { font-size: 14px; line-height: 1.4; color: var(--muted); }
+    .key:hover .terms { color: var(--ink); }
+
+    .two { display: grid; gap: 0 48px; }
+    @media (min-width: 900px) { .two { grid-template-columns: 1.4fr 1fr; } }
+
+    .scroller { display: grid; grid-auto-flow: column; grid-auto-columns: 78%; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+    .cell { scroll-snap-align: start; }
+    @media (min-width: 700px) { .scroller { grid-auto-columns: 40%; } }
+    @media (min-width: 1000px) { .scroller { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); overflow: visible; } }
+
+    .learn { display: grid; gap: 8px 40px; margin-top: 44px; }
+    .learn .box { background: var(--sea); color: #E3EEF4; border-radius: var(--r-lg); padding: 24px 22px; }
+    .learn .box h2 { color: #fff; }
+    .learn .box .btn { background: #fff; color: var(--sea); }
+    @media (min-width: 900px) { .learn { grid-template-columns: 1fr 1fr; align-items: start; } }
+  </style>
+</Base>

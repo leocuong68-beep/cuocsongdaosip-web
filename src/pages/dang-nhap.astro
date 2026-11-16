@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Đăng ký, đăng nhập Khu Học | Cuộc Sống Đảo Síp A-Z" description="Đăng ký miễn phí bằng email để vào Khu Học: học tiếng Hy Lạp, thi thử quốc tịch, lý thuyết bằng lái." noindex active="hoc">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="/">Trang chủ</a> / <a href="/hoc/">Học &amp; thi</a> / Tài khoản</p>
+
+    <section id="acc" class="box" hidden>
+      <h1>Chào <span id="acc-name"></span></h1>
+      <p class="muted" id="acc-email"></p>
+      <p class="acts"><a class="btn" id="acc-next" href="/hoc/">Tiếp tục</a><button type="button" class="btn ghost" id="logout">Đăng xuất</button></p>
+    </section>
+
+    <section id="auth" class="box">
+      <h1>Tài khoản Khu Học</h1>
+      <p class="muted">Đăng ký miễn phí bằng email, không cần mật khẩu: mỗi lần đăng nhập, mình gửi một mã 6 số vào email của bạn. Tài khoản dùng chung với web và app Di Trú Síp.</p>
+      <div class="seg" role="tablist">
+        <button type="button" role="tab" data-mode="register" aria-selected="true">Đăng ký</button>
+        <button type="button" role="tab" data-mode="login" aria-selected="false">Đã có tài khoản</button>
+      </div>
+      <form id="f1" novalidate>
+        <label class="reg">Họ và tên<input name="name" autocomplete="name" maxlength="80" required /></label>
+        <label>Email<input name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required /></label>
+        <label class="reg">Số Zalo/WhatsApp <span class="opt">(không bắt buộc, để mình nhắn khi duyệt)</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="+84 … hoặc +357 …" /></label>
+        <label class="reg ck"><input type="checkbox" name="consent" required /> <span>Mình đồng ý để Leo Cường (EUWay - Di Trú Síp) lưu họ tên, email và số điện thoại (nếu có) để cấp tài khoản Khu Học. <a href="https://ditrusip.com/chinh-sach-quyen-rieng-tu/" target="_blank" rel="noopener">Chính sách quyền riêng tư</a></span></label>
+        <p class="err" id="e1" role="alert"></p>
+        <button class="btn" type="submit" id="b1">Gửi mã xác minh</button>
+      </form>
+      <form id="f2" hidden novalidate>
+        <p>Mã 6 số đã gửi tới <b id="sent-to"></b>. Bạn xem cả hộp thư Spam hoặc Quảng cáo nhé.</p>
+        <label>Mã xác minh<input name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" pattern="[0-9]*" required /></label>
+        <p class="err" id="e2" role="alert"></p>
+        <button class="btn" type="submit" id="b2">Xác minh</button>
+        <p class="small"><button type="button" class="link" id="resend">Gửi lại mã</button> · <button type="button" class="link" id="back">Đổi email</button></p>
+      </form>
+    </section>
+  </div>
+  <style>
+    .box { margin: 8px 0 40px; }
+    .seg { display: flex; gap: 4px; background: var(--stone); padding: 4px; border-radius: 999px; margin: 18px 0; }
+    .seg button { flex: 1; border: 0; background: none; border-radius: 999px; padding: 10px; font: 500 15px var(--text); color: var(--muted); cursor: pointer; }
+    .seg button[aria-selected="true"] { background: #fff; color: var(--sea); box-shadow: 0 1px 4px rgba(18,80,122,.15); }
+    form { display: grid; gap: 14px; }
+    form[hidden], .reg[hidden] { display: none; }
+    label { display: grid; gap: 6px; font-weight: 500; font-size: 15px; }
+    .opt { font-weight: 300; color: var(--muted); font-size: 13.5px; }
+    label input:not([type=checkbox]) { padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font: 400 16px var(--text); background: #fff; color: var(--ink); }
+    input[name=code] { font-size: 24px !important; letter-spacing: 8px; text-align: center; }
+    label.ck { display: flex; gap: 10px; align-items: flex-start; font-weight: 300; font-size: 14px; color: var(--muted); }
+    label.ck input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
+    .err { color: #B3261E; margin: 0; min-height: 1em; font-size: 14px; }
+    .link { border: 0; background: none; color: var(--sea); text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
+    .link:disabled { color: var(--muted); text-decoration: none; cursor: default; }
+    .acts { display: flex; gap: 10px; flex-wrap: wrap; }
+  </style>
+  <script>
+    import { sb, session } from '../lib/member';
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const params = new URLSearchParams(location.search);
+    const raw = params.get('next') || '/hoc/';
+    const next = raw.startsWith('/') && !raw.startsWith('//') ? raw : '/hoc/';
+    let mode: 'register' | 'login' = 'register';
+    let email = '';
+    let profile = { name: '', phone: '' };
+
+    async function showAccount() {
+      const s = await sb.auth.getSession().then((r) => r.data.session);
+      if (!s) return false;
+      const { data: p } = await sb.from('profiles').select('full_name').eq('id', s.user.id).maybeSingle();
+      $('acc-name').textContent = p?.full_name || 'bạn';
+      $('acc-email').textContent = s.user.email ?? '';
+      ($('acc-next') as HTMLAnchorElement).href = next;
+      $('acc').hidden = false; $('auth').hidden = true;
+      return true;
+    }
+    function setMode(m: typeof mode) {
+      mode = m;
+      document.querySelectorAll<HTMLButtonElement>('.seg button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.mode === m)));
+      document.querySelectorAll<HTMLElement>('#f1 .reg').forEach((el) => (el.hidden = m !== 'register'));
+      $('b1').textContent = m === 'register' ? 'Gửi mã xác minh' : 'Gửi mã đăng nhập';
+      $('e1').textContent = '';
+    }
+    document.querySelectorAll<HTMLButtonElement>('.seg button').forEach((b) => (b.onclick = () => setMode(b.dataset.mode as typeof mode)));
+
+    const viErr = (m = '') =>
+      /rate|after \d+ seconds|security purposes/i.test(m) ? 'Bạn vừa yêu cầu mã. Đợi khoảng 1 phút rồi thử lại nhé.'
+      : /signups not allowed|not found|user not found/i.test(m) ? 'Email này chưa có tài khoản. Bạn chọn "Đăng ký" nhé.'
+      : /expired|invalid|otp/i.test(m) ? 'Mã không đúng hoặc đã hết hạn. Bạn kiểm tra lại hoặc bấm "Gửi lại mã".'
+      : 'Chưa gửi được mã. Bạn thử lại sau ít phút hoặc nhắn WhatsApp/Zalo +357 94 100 091.';
+
+    async function sendCode() {
+      const opts: any = { shouldCreateUser: mode === 'register' };
+      if (mode === 'register') opts.data = { full_name: profile.name, phone: profile.phone, register_consent: 'true', register_source: 'blog', register_topic: 'Đăng ký Khu Học trên blog cuocsongdaosip.com' };
+      const { error } = await sb.auth.signInWithOtp({ email, options: opts });
+      return error;
+    }
+    let cool = 0, timer = 0;
+    function cooldown() {
+      cool = 60; const b = $<HTMLButtonElement>('resend'); b.disabled = true;
+      clearInterval(timer);
+      timer = window.setInterval(() => { cool--; b.textContent = cool > 0 ? `Gửi lại mã (${cool}s)` : 'Gửi lại mã'; if (cool <= 0) { b.disabled = false; clearInterval(timer); } }, 1000);
+    }
+    $<HTMLFormElement>('f1').onsubmit = async (e) => {
+      e.preventDefault();
+      const d = new FormData(e.target as HTMLFormElement);
+      email = String(d.get('email') || '').trim().toLowerCase();
+      profile = { name: String(d.get('name') || '').trim(), phone: String(d.get('phone') || '').trim() };
+      const e1 = $('e1');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { e1.textContent = 'Email chưa đúng.'; return; }
+      if (mode === 'register') {
+        if (profile.name.length < 2) { e1.textContent = 'Bạn nhập họ tên giúp mình nhé.'; return; }
+        if (profile.phone && profile.phone.replace(/\D/g, '').length < 8) { e1.textContent = 'Số Zalo/WhatsApp chưa đúng, hoặc bạn để trống cũng được.'; return; }
+        if (!d.get('consent')) { e1.textContent = 'Bạn đánh dấu đồng ý lưu thông tin để tiếp tục.'; return; }
+      }
+      const b = $<HTMLButtonElement>('b1'); b.disabled = true; e1.textContent = '';
+      const err = await sendCode();
+      b.disabled = false;
+      if (err) { e1.textContent = viErr(err.message); if (/signups not allowed/i.test(err.message)) setMode('register'); return; }
+      $('sent-to').textContent = email; $('f1').hidden = true; $('f2').hidden = false; cooldown();
+      ($('f2').querySelector('input') as HTMLInputElement).focus();
+    };
+    $<HTMLFormElement>('f2').onsubmit = async (e) => {
+      e.preventDefault();
+      const code = String(new FormData(e.target as HTMLFormElement).get('code') || '').replace(/\D/g, '');
+      const e2 = $('e2');
+      if (code.length < 6) { e2.textContent = 'Mã gồm 6 số.'; return; }
+      const b = $<HTMLButtonElement>('b2'); b.disabled = true; e2.textContent = '';
+      const { data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'email' });
+      if (error || !data.session) { b.disabled = false; e2.textContent = viErr(error?.message ?? 'otp'); return; }
+      if (mode === 'register') {
+        const uid = data.session.user.id;
+        const { data: p } = await sb.from('profiles').select('full_name, phone').eq('id', uid).maybeSingle();
+        if (p && (!p.full_name || (!p.phone && profile.phone))) await sb.from('profiles').update({ full_name: p.full_name || profile.name, phone: p.phone || profile.phone || null }).eq('id', uid);
+      }
+      location.replace(next);
+    };
+    $('resend').onclick = async () => { if (cool > 0) return; const err = await sendCode(); $('e2').textContent = err ? viErr(err.message) : 'Đã gửi lại mã.'; if (!err) cooldown(); };
+    $('back').onclick = () => { $('f2').hidden = true; $('f1').hidden = false; };
+    $('logout').onclick = async () => { await sb.auth.signOut(); location.replace('/hoc/'); };
+    if (params.get('mode') === 'login') setMode('login');
+    session().then(() => showAccount());
+  </script>
+</Base>

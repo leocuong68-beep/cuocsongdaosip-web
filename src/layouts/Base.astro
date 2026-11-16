@@ -1,0 +1,145 @@
+---
+interface Props { title: string; description?: string | null; image?: string | null; type?: 'website' | 'article'; noindex?: boolean; jsonld?: object; active?: string }
+const { title, description, image, type = 'website', noindex = false, jsonld, active } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const path = Astro.url.pathname;
+const cur = active ?? path.split('/')[1];
+const tabs = [
+  { href: '/tin-tuc/', key: 'tin-tuc', label: 'Tin tức', icon: 'M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5' },
+  { href: '/kinh-nghiem/', key: 'kinh-nghiem', label: 'Kinh nghiệm', icon: 'M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z' },
+  { href: '/su-kien/', key: 'su-kien', label: 'Sự kiện', icon: 'M5 6h14v14H5zM5 10h14M9 3v5M15 3v5' },
+  { href: '/hoc/', key: 'hoc', label: 'Học & thi', icon: 'M3 9l9-5 9 5-9 5zM7 11v5c3 2 7 2 10 0v-5' },
+  { href: '/video/', key: 'video', label: 'Video', icon: 'M4 6h16v12H4zM10 9.5v5l4.5-2.5z' },
+];
+const site = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Cuộc Sống Đảo Síp A-Z', alternateName: 'Cuộc Sống Đảo Síp', url: 'https://www.cuocsongdaosip.com/', inLanguage: 'vi',
+  author: { '@type': 'Person', name: 'Leo Cường', alternateName: 'Đặng Thái Cường', homeLocation: 'Paphos, Cyprus', sameAs: ['https://www.youtube.com/@cuongdaosip'] } };
+---
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta name="theme-color" content="#12507A" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content="Cuộc Sống Đảo Síp A-Z" />
+  <meta property="og:image" content={image || 'https://i.ytimg.com/vi/1kuWRw9Dx_M/maxresdefault.jpg'} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title="Cuộc Sống Đảo Síp A-Z" href="/rss.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&display=swap&subset=vietnamese" rel="stylesheet" />
+  <script type="application/ld+json" set:html={JSON.stringify(site)} />
+  {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  <style is:global>
+    :root {
+      --sea: #12507A; --sea-2: #2C7DA0; --olive: #5E6B2E; --copper: #B0662B;
+      --stone: #F1F3EE; --paper: #FFFFFF; --ink: #1B2A33; --muted: #5B6A72; --line: #DDE3DE;
+      --r-lg: 18px; --r-sm: 10px;
+      --display: 'Fraunces', Georgia, serif; --text: 'Lexend', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: 72px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 300 16.5px/1.7 var(--text); padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+    @media (min-width: 900px) { body { padding-bottom: 0; } }
+    h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.18; color: var(--ink); margin: 0 0 .4em; font-variation-settings: 'opsz' 72; }
+    h1 { font-size: clamp(30px, 6vw, 48px); letter-spacing: -.01em; }
+    h2 { font-size: clamp(23px, 4vw, 30px); }
+    h3 { font-size: 19px; font-variation-settings: 'opsz' 24; }
+    p { margin: 0 0 1em; }
+    a { color: var(--sea); text-underline-offset: 3px; }
+    strong, b { font-weight: 500; }
+    img { max-width: 100%; height: auto; display: block; }
+    :focus-visible { outline: 3px solid var(--copper); outline-offset: 2px; border-radius: 4px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 18px; }
+    .narrow { max-width: 720px; }
+    .muted { color: var(--muted); }
+    .small { font-size: 14px; }
+
+    header.top { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: saturate(1.4) blur(8px); border-bottom: 1px solid var(--line); }
+    header.top .wrap { display: flex; align-items: center; gap: 18px; height: 60px; }
+    .brand { display: flex; align-items: baseline; gap: 8px; text-decoration: none; color: var(--ink); font-family: var(--display); font-weight: 700; font-size: 20px; white-space: nowrap; }
+    .brand .az { font-size: 13px; font-family: var(--text); font-weight: 600; color: #fff; background: var(--copper); padding: 1px 7px; border-radius: 6px; transform: translateY(-2px); }
+    nav.desk { margin-left: auto; display: none; gap: 2px; }
+    nav.desk a { color: var(--ink); text-decoration: none; padding: 7px 12px; border-radius: 999px; font-weight: 400; font-size: 15px; }
+    nav.desk a:hover, nav.desk a[aria-current] { background: var(--stone); color: var(--sea); }
+    .top .search { margin-left: auto; color: var(--ink); display: inline-flex; padding: 8px; border-radius: 999px; }
+    @media (min-width: 900px) { nav.desk { display: flex; } .top .search { margin-left: 0; } }
+
+    nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: #fff; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(5, 1fr); padding-bottom: env(safe-area-inset-bottom); }
+    nav.tabs a { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 7px; font-size: 11.5px; color: var(--muted); text-decoration: none; font-weight: 400; }
+    nav.tabs svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    nav.tabs a[aria-current] { color: var(--sea); font-weight: 500; }
+    nav.tabs a[aria-current] svg { stroke-width: 2.1; }
+    @media (min-width: 900px) { nav.tabs { display: none; } }
+
+    .crumb { font-size: 14px; color: var(--muted); margin: 18px 0 10px; }
+    .crumb a { color: var(--muted); }
+    .tag { display: inline-block; font-size: 13px; font-weight: 500; color: var(--olive); background: #EEF1E2; padding: 2px 10px; border-radius: 999px; text-decoration: none; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--sea); color: #fff; border: 0; border-radius: 999px; padding: 11px 20px; font: 500 15px var(--text); text-decoration: none; cursor: pointer; }
+    .btn.ghost { background: #fff; color: var(--sea); box-shadow: inset 0 0 0 1.5px var(--sea); }
+    .btn:disabled { opacity: .6; cursor: default; }
+    .note { font-size: 14px; color: var(--muted); border-left: 3px solid var(--copper); padding: 4px 0 4px 14px; margin: 24px 0; }
+
+    .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 40px 0 14px; }
+    .sec-head h2 { margin: 0; }
+    .sec-head a { font-size: 15px; white-space: nowrap; }
+
+    footer.site { background: var(--sea); color: #D9E7EF; margin-top: 64px; padding: 36px 0 28px; font-size: 15px; }
+    footer.site a { color: #fff; }
+    footer.site .cols { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    footer.site h3 { color: #fff; font-size: 18px; margin-bottom: 8px; }
+    footer.site p { margin: 0 0 .6em; }
+    footer.site .fine { margin-top: 24px; font-size: 13px; opacity: .8; }
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Cuộc Sống Đảo Síp A-Z, trang chủ">Cuộc Sống Đảo Síp <span class="az">A-Z</span></a>
+      <nav class="desk" aria-label="Chuyên mục">
+        {tabs.map((t) => <a href={t.href} aria-current={cur === t.key ? 'page' : undefined}>{t.key === 'kinh-nghiem' ? 'Kinh nghiệm sống' : t.label}</a>)}
+        <a href="/a-z/" aria-current={cur === 'a-z' ? 'page' : undefined}>Sổ tay A-Z</a>
+      </nav>
+      <a class="search" href="/a-z/" aria-label="Sổ tay A-Z, tra theo chủ đề"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></a>
+    </div>
+  </header>
+  <main><slot /></main>
+  <footer class="site">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <h3>Cuộc Sống Đảo Síp A-Z</h3>
+          <p>Kinh nghiệm thực tế cho người Việt ở Síp. Blog cá nhân của Leo Cường, nhà đầu tư đang sống cùng gia đình ở Paphos.</p>
+          <p><a href="/gioi-thieu/">Về mình và blog này</a></p>
+        </div>
+        <div>
+          <h3>Xem thêm</h3>
+          <p><a href="https://www.youtube.com/@cuongdaosip" rel="noopener">Kênh YouTube Cường Đảo Síp</a></p>
+          <p><a href="https://www.facebook.com/groups/936624705450469" rel="noopener">Nhóm Facebook người Việt quan tâm Síp</a></p>
+          <p><a href="/rss.xml">Theo dõi bài mới (RSS)</a></p>
+        </div>
+        <div>
+          <h3>Cần hỏi về di trú?</h3>
+          <p>Blog chỉ chia sẻ kinh nghiệm. Thủ tục thường trú, mua nhà, chi phí hồ sơ, mình để ở trang riêng <a href="https://ditrusip.com/" rel="noopener">Di Trú Síp (ditrusip.com)</a>.</p>
+        </div>
+      </div>
+      <p class="fine">Nội dung là kinh nghiệm cá nhân và thông tin tham khảo, không phải tư vấn pháp lý, thuế hay đầu tư. Quy định ở Síp thay đổi thường xuyên, các bác các bạn kiểm tra lại với cơ quan chính thức trước khi làm. © {new Date().getFullYear()} Leo Cường · <a href="https://ditrusip.com/chinh-sach-quyen-rieng-tu/">Chính sách quyền riêng tư</a></p>
+    </div>
+  </footer>
+  <nav class="tabs" aria-label="Chuyên mục">
+    {tabs.map((t) => (
+      <a href={t.href} aria-current={cur === t.key ? 'page' : undefined}><svg viewBox="0 0 24 24" aria-hidden="true"><path d={t.icon} /></svg>{t.label}</a>
+    ))}
+  </nav>
+</body>
+</html>

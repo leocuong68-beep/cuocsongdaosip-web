@@ -1,0 +1,6 @@
+---
+import ListPage from '../components/ListPage.astro';
+import { bySection, SECTIONS } from '../lib/db';
+const posts = await bySection('kinh-nghiem');
+---
+<ListPage title="Kinh nghiệm sống ở Síp: giá cả, điện nước, trường học | Cuộc Sống Đảo Síp A-Z" h1="Kinh nghiệm sống" intro={SECTIONS['kinh-nghiem'].blurb} description="Kinh nghiệm sống ở đảo Síp của gia đình người Việt tại Paphos: chi phí sinh hoạt, điện nước, ngân hàng, y tế GESY, trường học, mua xe, thuê nhà, thuế." posts={posts} active="kinh-nghiem" />

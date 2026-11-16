@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import PostRow from '../components/PostRow.astro';
+import { getPosts, CATS, SECTIONS, fmtDate, fixLinks, readMins, type Post } from '../lib/db';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { item: p } }));
+}
+const { item } = Astro.props as { item: Post };
+const posts = await getPosts();
+const slugs = new Set(posts.map((p) => p.slug));
+const sec = SECTIONS[item.section] ?? SECTIONS['kinh-nghiem'];
+const related = posts.filter((p) => p.slug !== item.slug && p.category === item.category && p.section !== 'video').slice(0, 4);
+const vids = item.section === 'video' ? [] : posts.filter((p) => p.section === 'video' && p.category === item.category).slice(0, 2);
+const body = fixLinks(item.content_html, slugs);
+const url = new URL(`/${item.slug}/`, Astro.site).href;
+const author = { '@type': 'Person', name: item.author || 'Leo Cường', url: 'https://www.cuocsongdaosip.com/gioi-thieu/' };
+const jsonld = item.youtube_id
+  ? { '@context': 'https://schema.org', '@type': 'VideoObject', name: item.title, description: item.excerpt || item.title, thumbnailUrl: item.cover_url, uploadDate: item.published_at, embedUrl: `https://www.youtube.com/embed/${item.youtube_id}`, contentUrl: `https://www.youtube.com/watch?v=${item.youtube_id}`, author }
+  : { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: item.title, datePublished: item.published_at, dateModified: item.updated_at, image: item.cover_url ?? undefined, author, mainEntityOfPage: url, inLanguage: 'vi' };
+const changed = item.updated_at.slice(0, 10) !== item.published_at.slice(0, 10);
+---
+<Base title={item.seo_title ?? item.title} description={item.seo_description ?? item.excerpt} image={item.cover_url} type="article" jsonld={jsonld} active={item.section === 'hoc-tap' ? 'hoc' : item.section}>
+  <article class="wrap narrow post">
+    <p class="crumb"><a href="/">Trang chủ</a> / <a href={sec.href}>{sec.label}</a></p>
+    <h1>{item.title}</h1>
+    <p class="by">
+      <img src="https://yt3.ggpht.com/aWfQPuiGKlc4NY0nJGndMZUM9x_iJAfrmGO41JrX50SZr_dO_XCr-Lm_5--6teoBf-AaYJ4l=s88-c-k-c0x00ffffff-no-rj" alt="" width="36" height="36" />
+      <span><a href="/gioi-thieu/">{item.author || 'Leo Cường'}</a>, Paphos<br /><span class="muted">{fmtDate(item.published_at)}{changed && `, cập nhật ${fmtDate(item.updated_at)}`}{!item.youtube_id && `, đọc khoảng ${readMins(item.content_html)} phút`}</span></span>
+      {item.category && CATS[item.category] && <span class="tag">{CATS[item.category]}</span>}
+    </p>
+    {item.youtube_id ? (
+      <div class="yt" data-id={item.youtube_id}>
+        <button type="button" aria-label={`Xem video: ${item.title}`}>
+          <img src={item.cover_url!} alt="" width="1280" height="720" />
+          <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></span>
+        </button>
+      </div>
+    ) : item.cover_url && <img class="cover" src={item.cover_url} alt="" width="1200" height="675" />}
+    <div class="prose" set:html={body} />
+    {item.youtube_id && <p><a class="btn ghost" href={`https://www.youtube.com/watch?v=${item.youtube_id}`} rel="noopener" target="_blank">Xem và bình luận trên YouTube</a></p>}
+    <p class="note">Bài viết là kinh nghiệm và thông tin tham khảo của mình tại thời điểm viết, không phải tư vấn pháp lý, thuế hay đầu tư. Thấy chỗ nào đã thay đổi, các bác các bạn nhắn mình để sửa nhé.</p>
+  </article>
+  {(related.length > 0 || vids.length > 0) && (
+    <div class="wrap narrow">
+      {vids.length > 0 && <><h2 class="more">Video liên quan</h2>{vids.map((p) => <PostRow p={p} showCat={false} />)}</>}
+      {related.length > 0 && <><h2 class="more">Đọc thêm</h2>{related.map((p) => <PostRow p={p} showCat={false} />)}</>}
+    </div>
+  )}
+  <style>
+    .post h1 { margin-top: 4px; }
+    .by { display: flex; align-items: center; gap: 10px; font-size: 14.5px; line-height: 1.45; margin: 14px 0 20px; flex-wrap: wrap; }
+    .by img { width: 36px; height: 36px; border-radius: 50%; }
+    .by a { color: var(--ink); font-weight: 500; text-decoration: none; }
+    .by .tag { margin-left: auto; }
+    .cover { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: var(--r-lg); margin-bottom: 26px; }
+    .yt { margin-bottom: 24px; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 16/9; background: #000; }
+    .yt button { all: unset; cursor: pointer; display: block; position: relative; width: 100%; height: 100%; }
+    .yt img { width: 100%; height: 100%; object-fit: cover; }
+    .yt .play { position: absolute; inset: 0; margin: auto; width: 72px; height: 50px; border-radius: 14px; background: #C4302B; display: grid; place-items: center; }
+    .yt .play svg { width: 26px; fill: #fff; }
+    .yt iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .more { margin: 40px 0 4px; font-size: 24px; }
+    .prose { font-size: 17.5px; line-height: 1.78; }
+    .prose :global(h2) { margin: 1.6em 0 .5em; font-size: 25px; }
+    .prose :global(h3) { margin: 1.4em 0 .4em; }
+    .prose :global(ul), .prose :global(ol) { padding-left: 22px; }
+    .prose :global(li) { margin: 5px 0; }
+    .prose :global(ul.toc) { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+    .prose :global(ul.toc li) { margin: 0; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+    .prose :global(ul.toc strong) { display: inline-block; min-width: 54px; color: var(--sea); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .prose :global(table) { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; font-size: 15px; margin: 1em 0; }
+    .prose :global(th), .prose :global(td) { border-bottom: 1px solid var(--line); padding: 9px 10px; text-align: left; vertical-align: top; }
+    .prose :global(th) { background: var(--stone); font-weight: 500; }
+    .prose :global(blockquote) { margin: 1.2em 0; padding: 4px 0 4px 18px; border-left: 3px solid var(--sea-2); color: var(--muted); }
+    .prose :global(img) { border-radius: var(--r-sm); margin: 1em 0; }
+  </style>
+  <script>
+    document.querySelectorAll<HTMLElement>('.yt').forEach((box) => box.querySelector('button')?.addEventListener('click', () => {
+      box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${box.dataset.id}?autoplay=1&rel=0" title="Video YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    }));
+  </script>
+</Base>

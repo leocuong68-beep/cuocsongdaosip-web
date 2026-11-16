@@ -1,0 +1,6 @@
+---
+import ListPage from '../components/ListPage.astro';
+import { bySection, SECTIONS } from '../lib/db';
+const posts = await bySection('tin-tuc');
+---
+<ListPage title="Tin tức đảo Síp cho người Việt | Cuộc Sống Đảo Síp A-Z" h1="Tin tức" intro={SECTIONS['tin-tuc'].blurb + ' Mỗi tin mình ghi rõ nguồn và ngày.'} description="Tin tức đảo Síp mới nhất bằng tiếng Việt: giá nhà, giá xăng, lương, thuế, chính sách gia đình, Schengen. Có nguồn và ngày cho từng tin." posts={posts} active="tin-tuc" />

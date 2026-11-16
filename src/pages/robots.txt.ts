@@ -1,0 +1,1 @@
+export const GET = () => new Response('User-agent: *\nAllow: /\nDisallow: /hoc/quan-tri/\nDisallow: /dang-nhap/\nSitemap: https://www.cuocsongdaosip.com/sitemap.xml\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
