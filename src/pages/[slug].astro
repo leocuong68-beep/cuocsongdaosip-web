@@ -16,13 +16,13 @@ const related = posts.filter((p) => p.slug !== item.slug && p.category === item.
 const vids = item.section === 'video' ? [] : posts.filter((p) => p.section === 'video' && p.category === item.category).slice(0, 2);
 const body = fixLinks(item.content_html, slugs);
 const url = new URL(`/${item.slug}/`, Astro.site).href;
-const author = { '@type': 'Person', name: item.author || 'Leo Cường', url: 'https://www.cuocsongdaosip.com/gioi-thieu/' };
+const author = { '@type': 'Person', '@id': 'https://www.cuocsongdaosip.com/#leo', name: item.author || 'Leo Cường', url: 'https://www.cuocsongdaosip.com/gioi-thieu/' };
 const jsonld = item.youtube_id
   ? { '@context': 'https://schema.org', '@type': 'VideoObject', name: item.title, description: item.excerpt || item.title, thumbnailUrl: item.cover_url, uploadDate: item.published_at, embedUrl: `https://www.youtube.com/embed/${item.youtube_id}`, contentUrl: `https://www.youtube.com/watch?v=${item.youtube_id}`, author }
-  : { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: item.title, datePublished: item.published_at, dateModified: item.updated_at, image: item.cover_url ?? undefined, author, mainEntityOfPage: url, inLanguage: 'vi' };
+  : { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: item.title, datePublished: item.published_at, dateModified: item.updated_at, image: item.cover_url ?? undefined, author, mainEntityOfPage: url, inLanguage: 'vi', publisher: { '@id': 'https://www.cuocsongdaosip.com/#leo' }, isPartOf: { '@id': 'https://www.cuocsongdaosip.com/#site' }, articleSection: sec.label, description: item.seo_description ?? item.excerpt };
 const changed = item.updated_at.slice(0, 10) !== item.published_at.slice(0, 10);
 ---
-<Base title={item.seo_title ?? item.title} description={item.seo_description ?? item.excerpt} image={item.cover_url} type="article" jsonld={jsonld} active={item.section === 'hoc-tap' ? 'hoc' : item.section}>
+<Base title={item.seo_title ?? item.title} description={item.seo_description ?? item.excerpt} image={item.cover_url} type="article" jsonld={jsonld} crumbs={[[sec.label, sec.href], [item.title, `/${item.slug}/`]]} active={item.section === 'hoc-tap' ? 'hoc' : item.section}>
   <article class="wrap narrow post">
     <p class="crumb"><a href="/">Trang chủ</a> / <a href={sec.href}>{sec.label}</a></p>
     <h1>{item.title}</h1>
@@ -34,11 +34,11 @@ const changed = item.updated_at.slice(0, 10) !== item.published_at.slice(0, 10);
     {item.youtube_id ? (
       <div class="yt" data-id={item.youtube_id}>
         <button type="button" aria-label={`Xem video: ${item.title}`}>
-          <img src={item.cover_url!} alt="" width="1280" height="720" />
+          <img src={item.cover_url!} alt={item.title} width="1280" height="720" />
           <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></span>
         </button>
       </div>
-    ) : item.cover_url && <img class="cover" src={item.cover_url} alt="" width="1200" height="675" />}
+    ) : item.cover_url && <img class="cover" src={item.cover_url} alt={item.title} width="1200" height="675" />}
     <div class="prose" set:html={body} />
     {item.youtube_id && <p><a class="btn ghost" href={`https://www.youtube.com/watch?v=${item.youtube_id}`} rel="noopener" target="_blank">Xem và bình luận trên YouTube</a></p>}
     <SoftCta category={item.category} section={item.section} slug={item.slug} />

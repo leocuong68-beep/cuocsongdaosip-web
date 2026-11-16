@@ -9,7 +9,7 @@ const upcoming = all.filter((e) => (e.ends_on ?? e.starts_on) >= today).sort((a,
 const past = all.filter((e) => (e.ends_on ?? e.starts_on) < today);
 const posts = await bySection('su-kien');
 ---
-<Base title="Sự kiện, lễ hội ở Síp | Cuộc Sống Đảo Síp A-Z" description="Lịch sự kiện, lễ hội, chợ phiên ở Paphos, Limassol, Larnaca, Nicosia cho gia đình người Việt ở Síp: ngày giờ, địa điểm, giá vé, nguồn." active="su-kien">
+<Base title="Sự kiện, lễ hội ở Đảo Síp cho gia đình người Việt | Cuộc Sống Đảo Síp" description="Lịch sự kiện, lễ hội, chợ phiên ở Paphos, Limassol, Larnaca, Nicosia cho gia đình người Việt ở Síp: ngày giờ, địa điểm, giá vé, nguồn." active="su-kien">
   <div class="wrap narrow">
     <p class="crumb"><a href="/">Trang chủ</a> / Sự kiện</p>
     <h1>Sự kiện</h1>

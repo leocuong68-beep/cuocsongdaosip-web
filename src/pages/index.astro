@@ -17,15 +17,25 @@ const events = await getEvents();
 const upcoming = events.filter((e) => (e.ends_on ?? e.starts_on) >= today).sort((a, b) => a.starts_on.localeCompare(b.starts_on)).slice(0, 4);
 const recentEv = upcoming.length ? upcoming : events.slice(0, 3);
 const letters = [...new Set(AZ_LIST.map((a) => a.letter))];
+const FAQ: [string, string, string, string][] = [
+  ['Cuộc sống ở Đảo Síp có đắt không?', 'Tuỳ thành phố bạn chọn. Limassol đắt nhất, nhất là tiền thuê nhà; Paphos, Larnaca dễ chịu hơn. Với nhà mình, khoản lớn nhất là tiền nhà và tiền điện mùa hè khi chạy điều hoà nhiều.', '/chi-phi-sinh-hoat-o-sip-2026-mot-thang-can-bao-nhieu/', 'Chi phí sinh hoạt ở Síp mỗi tháng'],
+  ['Người Việt sang Síp sống có khó hoà nhập không?', 'Không quá khó. Tiếng Anh được dùng rộng rãi, đa số biển báo song ngữ Hy Lạp và Anh, người Síp thân thiện, nhịp sống chậm kiểu "siga siga". Có cộng đồng người Việt, nhất là ở Nicosia, Limassol và Paphos.', '/song-o-paphos-sip-chi-phi-truong-hoc-y-te-2026/', 'Sống ở Paphos thực tế ra sao'],
+  ['Sống ở Síp có cần ô tô không?', 'Gần như cần. Xe buýt có nhưng thưa, Síp không có tàu hoả, nên đa số gia đình mua xe. Bằng lái Việt Nam chỉ dùng được một thời gian, sau đó phải đổi hoặc thi lại.', '/bang-lai-xe-o-sip-cho-nguoi-viet-2026-dung-bang-viet-nam-duoc-khong-thi-lai-the-nao/', 'Bằng lái xe ở Síp cho người Việt'],
+  ['Khám chữa bệnh ở Síp thế nào?', 'Síp có hệ thống bảo hiểm y tế quốc gia GESY. Người cư trú hợp pháp đăng ký, chọn bác sĩ gia đình, đi khám theo giấy giới thiệu. Ngoài GESY vẫn có phòng khám tư.', '/y-te-o-sip-2026-he-thong-gesy-muc-dong-va-chi-phi-kham-chua-benh/', 'Y tế ở Síp và GESY'],
+  ['Con cái đi học ở Síp ra sao?', 'Trường công miễn học phí và dạy bằng tiếng Hy Lạp; trường tư và trường quốc tế dạy bằng tiếng Anh, có học phí. Nhiều gia đình cho con nhỏ học trường công, con lớn học trường quốc tế.', '/truong-hoc-cho-con-o-sip-cong-lap-truong-quoc-te-hoc-phi-2026/', 'Trường học cho con ở Síp'],
+  ['Khí hậu Síp có hợp người Việt không?', 'Nắng nhiều quanh năm. Hè từ khoảng tháng 5 tới tháng 10 nóng và khô, mùa đông ven biển ấm, mưa chủ yếu từ tháng 12 tới tháng 2. Người quen khí hậu miền Nam thường thấy dễ chịu.', '/khi-hau-thoi-tiet-sip-theo-mua-2026-nang-nong-mua-dong-han-han-nuoc/', 'Khí hậu và thời tiết Síp theo mùa'],
+];
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) };
 ---
-<Base title="Cuộc Sống Đảo Síp A-Z | Kinh nghiệm thực tế cho người Việt ở Síp" description="Blog cá nhân của Leo Cường ở Paphos: tin tức, giá cả, điện nước, trường học, bằng lái, học tiếng Hy Lạp, sự kiện và video về cuộc sống người Việt ở đảo Síp." active="home">
+<Base title="Cuộc Sống Đảo Síp A-Z: kinh nghiệm thực tế cho người Việt" description="Cuộc sống Đảo Síp kể bởi một gia đình Việt ở Paphos: giá cả, điện nước, trường học, y tế, bằng lái, học tiếng Hy Lạp, tin tức, sự kiện và video thực tế." active="home" jsonld={faqLd}>
   <section class="hello">
     <div class="wrap">
       <div class="who">
         <img src="https://yt3.ggpht.com/aWfQPuiGKlc4NY0nJGndMZUM9x_iJAfrmGO41JrX50SZr_dO_XCr-Lm_5--6teoBf-AaYJ4l=s176-c-k-c0x00ffffff-no-rj" alt="Leo Cường" width="64" height="64" />
         <p>Mình là <b>Leo Cường</b>. Cả nhà mình chuyển từ Sài Gòn sang sống ở Paphos từ tháng 9/2025. Ở đây mình ghi lại chuyện giá cả, giấy tờ, trường lớp, thi cử và chỗ chơi cuối tuần, đúng như nhà mình đã trải qua. <a href="/gioi-thieu/">Đọc thêm về mình</a></p>
       </div>
-      <h1>Kinh nghiệm thực tế cho người Việt ở Síp</h1>
+      <h1>Cuộc sống Đảo Síp</h1>
+      <p class="tag-line">Kinh nghiệm thực tế cho người Việt ở Síp, từ A tới Z</p>
     </div>
   </section>
 
@@ -70,6 +80,22 @@ const letters = [...new Set(AZ_LIST.map((a) => a.letter))];
       <div class="scroller">{videos.map((p) => <div class="cell"><PostTile p={p} /></div>)}</div>
     </section>
 
+    <section class="about" aria-labelledby="about-h">
+      <h2 id="about-h">Cuộc sống ở Đảo Síp ra sao?</h2>
+      <p>Síp là một đảo nhỏ ở phía đông Địa Trung Hải, thành viên Liên minh châu Âu từ 2004, dùng đồng euro từ 2008. Nhà mình sống ở Paphos từ tháng 9/2025. Sau hơn một năm, cuộc sống Đảo Síp với nhà mình gói trong mấy chữ: chậm, yên, nắng và gần biển. Đi đâu cũng cần xe, giấy tờ phải kiên nhẫn, mùa hè rất nóng, nhưng con được học trong môi trường đa quốc tịch và cả nhà có nhiều thời gian cho nhau hơn.</p>
+      <p>Blog này ghi lại những gì nhà mình làm thật: <a href="/kinh-nghiem/">kinh nghiệm sống</a> (giá cả, điện nước, ngân hàng, trường lớp), <a href="/tin-tuc/">tin tức Đảo Síp</a> đáng chú ý, <a href="/su-kien/">sự kiện cuối tuần</a>, chuyện <a href="/hoc/">học tiếng Hy Lạp, thi bằng lái, quốc tịch</a> và <a href="/video/">video</a> trên kênh Cường Đảo Síp. Mới sang thì bắt đầu từ <a href="/a-z/">sổ tay A-Z</a>.</p>
+    </section>
+
+    <section class="faq" aria-labelledby="faq-h">
+      <h2 id="faq-h">Hỏi nhanh về cuộc sống Đảo Síp</h2>
+      {FAQ.map(([q, a, href, label]) => (
+        <details>
+          <summary>{q}</summary>
+          <p>{a} <a href={href}>{label}</a></p>
+        </details>
+      ))}
+    </section>
+
     <section class="learn" aria-labelledby="hoc-h">
       <div class="box">
         <h2 id="hoc-h">Học tiếng Hy Lạp, bằng lái, quốc tịch</h2>
@@ -85,7 +111,18 @@ const letters = [...new Set(AZ_LIST.map((a) => a.letter))];
     .who { display: flex; gap: 14px; align-items: flex-start; max-width: 720px; }
     .who img { width: 56px; height: 56px; border-radius: 50%; flex: none; border: 2px solid #fff; }
     .who p { margin: 0; font-size: 15.5px; }
-    .hello h1 { margin: 20px 0 0; max-width: 16ch; }
+    .hello h1 { margin: 20px 0 0; }
+    .tag-line { font-size: 18px; color: var(--muted); margin: 6px 0 0; }
+    .about { max-width: 760px; margin-top: 44px; }
+    .about p { font-size: 17px; }
+    .faq { max-width: 760px; margin-top: 28px; }
+    .faq details { border-bottom: 1px solid var(--line); padding: 4px 0; }
+    .faq summary { cursor: pointer; padding: 12px 0; font-weight: 500; font-size: 16.5px; list-style: none; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: '+'; float: right; color: var(--sea); font-size: 20px; line-height: 1; }
+    .faq details[open] summary::after { content: '–'; }
+    .faq details p { margin: 0 0 14px; color: var(--ink); }
+
     .lead { margin-top: 26px; }
 
     .az .muted { margin-top: -6px; }

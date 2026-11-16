@@ -1,6 +1,9 @@
 ---
-interface Props { title: string; description?: string | null; image?: string | null; type?: 'website' | 'article'; noindex?: boolean; jsonld?: object; active?: string }
-const { title, description, image, type = 'website', noindex = false, jsonld, active } = Astro.props;
+interface Props { title: string; description?: string | null; image?: string | null; type?: 'website' | 'article'; noindex?: boolean; jsonld?: object; active?: string; crumbs?: [string, string][] }
+const { title, description, image, type = 'website', noindex = false, jsonld, active, crumbs } = Astro.props;
+// Thương hiệu ở cuối tiêu đề khi còn chỗ (≤ 65 ký tự), để Google gắn trang với cụm "Cuộc Sống Đảo Síp".
+const fullTitle = /Cuộc Sống Đảo Síp/i.test(title) || title.length > 44 ? title : `${title} | Cuộc Sống Đảo Síp`;
+const crumbLd = crumbs?.length ? { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [['Trang chủ', '/'], ...crumbs].map(([name, href], i) => ({ '@type': 'ListItem', position: i + 1, name, item: new URL(href, Astro.site).href })) } : null;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const path = Astro.url.pathname;
 const cur = active ?? path.split('/')[1];
@@ -11,25 +14,25 @@ const tabs = [
   { href: '/hoc/', key: 'hoc', label: 'Học & thi', icon: 'M3 9l9-5 9 5-9 5zM7 11v5c3 2 7 2 10 0v-5' },
   { href: '/video/', key: 'video', label: 'Video', icon: 'M4 6h16v12H4zM10 9.5v5l4.5-2.5z' },
 ];
-const site = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Cuộc Sống Đảo Síp A-Z', alternateName: 'Cuộc Sống Đảo Síp', url: 'https://www.cuocsongdaosip.com/', inLanguage: 'vi',
-  author: { '@type': 'Person', name: 'Leo Cường', alternateName: 'Đặng Thái Cường', homeLocation: 'Paphos, Cyprus', sameAs: ['https://www.youtube.com/@cuongdaosip'] } };
+const person = { '@type': 'Person', '@id': 'https://www.cuocsongdaosip.com/#leo', name: 'Leo Cường', alternateName: ['Đặng Thái Cường', 'Cường Đảo Síp'], url: 'https://www.cuocsongdaosip.com/gioi-thieu/', homeLocation: { '@type': 'Place', name: 'Paphos, Cyprus' }, sameAs: ['https://www.youtube.com/@cuongdaosip', 'https://www.facebook.com/cuongdaosip'] };
+const site = { '@context': 'https://schema.org', '@type': 'WebSite', '@id': 'https://www.cuocsongdaosip.com/#site', name: 'Cuộc Sống Đảo Síp', alternateName: ['Cuộc Sống Đảo Síp A-Z', 'cuocsongdaosip.com'], url: 'https://www.cuocsongdaosip.com/', inLanguage: 'vi', description: 'Kinh nghiệm thực tế cho người Việt ở Síp', author: person, publisher: person };
 ---
 <!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>{title}</title>
+  <title>{fullTitle}</title>
   {description && <meta name="description" content={description} />}
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex" />}
   <meta name="theme-color" content="#12507A" />
   <meta property="og:locale" content="vi_VN" />
   <meta property="og:type" content={type} />
-  <meta property="og:title" content={title} />
+  <meta property="og:title" content={fullTitle} />
   {description && <meta property="og:description" content={description} />}
   <meta property="og:url" content={canonical} />
-  <meta property="og:site_name" content="Cuộc Sống Đảo Síp A-Z" />
+  <meta property="og:site_name" content="Cuộc Sống Đảo Síp" />
   <meta property="og:image" content={image || 'https://i.ytimg.com/vi/1kuWRw9Dx_M/maxresdefault.jpg'} />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -39,6 +42,8 @@ const site = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Cu�
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Lexend:wght@300;400;500;600&display=swap&subset=vietnamese" rel="stylesheet" />
   <script type="application/ld+json" set:html={JSON.stringify(site)} />
   {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  {crumbLd && <script type="application/ld+json" set:html={JSON.stringify(crumbLd)} />}
+  <link rel="alternate" hreflang="vi" href={canonical} />
   <style is:global>
     :root {
       --sea: #12507A; --sea-2: #2C7DA0; --olive: #5E6B2E; --copper: #B0662B;

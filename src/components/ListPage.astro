@@ -8,7 +8,7 @@ interface Props { title: string; h1: string; intro: string; description: string;
 const { title, h1, intro, description, posts, active, grid = false } = Astro.props;
 const used = Object.keys(CATS).filter((c) => posts.some((p) => p.category === c));
 ---
-<Base title={title} description={description} active={active}>
+<Base title={title} description={description} active={active} crumbs={[[h1, `/${active}/`]]} jsonld={{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: h1, description, isPartOf: { '@id': 'https://www.cuocsongdaosip.com/#site' }, mainEntity: { '@type': 'ItemList', itemListElement: posts.slice(0, 30).map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(`/${p.slug}/`, Astro.site).href, name: p.title })) } }}>
   <div class="wrap">
     <p class="crumb"><a href="/">Trang chủ</a> / {h1}</p>
     <h1>{h1}</h1>
