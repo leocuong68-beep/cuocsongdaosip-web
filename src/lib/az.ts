@@ -3,7 +3,7 @@ export type AZ = { letter: string; term: string; id: string; line: string; keys:
 
 export const AZ_LIST: AZ[] = [
   { letter: 'A', term: 'An cư năm đầu', id: 'an-cu', line: 'Những việc nhà mình làm trong mấy tháng đầu: giấy tờ, chỗ ở, trường cho con, xe cộ.', keys: ['an cư', 'sống ở paphos', 'sống ở limassol', '1 năm', 'năm đầu', 'hỗ trợ gia đình'] },
-  { letter: 'B', term: 'Bằng lái xe', id: 'bang-lai', line: 'Dùng bằng Việt Nam được bao lâu, đổi hay thi lại, thi lý thuyết ra sao.', keys: ['bằng lái'] },
+  { letter: 'B', term: 'Bằng lái xe', id: 'bang-lai', line: 'Dùng bằng Việt Nam được bao lâu, đổi hay thi lại; học 170 biển báo và làm trắc nghiệm.', keys: ['bằng lái'], href: '/hoc/bang-lai/' },
   { letter: 'B', term: 'Bảo hiểm xã hội', id: 'bao-hiem', line: 'Mức đóng cho người làm thuê, tự doanh và chủ công ty.', keys: ['bảo hiểm xã hội'] },
   { letter: 'C', term: 'Chi phí sinh hoạt', id: 'chi-phi', line: 'Một tháng ở Síp tốn bao nhiêu: đi chợ, siêu thị, điện nước, xăng xe.', keys: ['chi phí sinh hoạt', 'chi phí', 'siêu thị', 'chợ trời', '100 euro'] },
   { letter: 'C', term: 'Cho thuê nhà', id: 'cho-thue', line: 'Thuê dài hạn, ngắn hạn, Airbnb, giá thuê theo thành phố và thuế cho thuê.', keys: ['cho thuê', 'thuê nhà', 'airbnb'] },

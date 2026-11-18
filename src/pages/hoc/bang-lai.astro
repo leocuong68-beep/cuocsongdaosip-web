@@ -1,0 +1,231 @@
+---
+// Học biển báo giao thông Síp + trắc nghiệm (miễn phí, không cần đăng nhập).
+// Dữ liệu: dự án cysigns (MIT, github.com/mrfeod/cysigns), hình từ Wikimedia Commons theo bài "Road signs in Cyprus". Tên tiếng Việt: Cuộc Sống Đảo Síp dịch.
+import Base from '../../layouts/Base.astro';
+import signs from '../../data/bien-bao.json';
+const CAT: Record<string, string> = {
+  'canh-bao': 'Biển cảnh báo', cam: 'Biển cấm, hạn chế', 'uu-tien': 'Ưu tiên, dừng, nhường', 'do-xe': 'Dừng, đỗ xe',
+  'hieu-lenh': 'Biển hiệu lệnh', 'chi-dan': 'Biển chỉ dẫn', 'bien-phu': 'Biển phụ', 'xe-dap': 'Xe đạp, camera',
+};
+const cats = Object.keys(CAT).filter((c) => signs.some((s) => s.cat === c));
+const faq = [
+  ['Ở Síp xe chạy bên nào?', 'Bên trái, tay lái bên phải, giống Anh. Nhiều biển báo của Síp theo mẫu của Anh, một số theo mẫu Hy Lạp và châu Âu.'],
+  ['Biển báo ở Síp viết bằng tiếng gì?', 'Đa số biển chỉ dẫn ghi song ngữ Hy Lạp và Anh. Biển cảnh báo, biển cấm chủ yếu là hình vẽ nên học theo hình là đọc được.'],
+  ['Học biển báo ở đây có đủ để thi bằng lái không?', 'Chưa đủ. Đây là phần nhận biết biển báo. Bài thi lý thuyết còn luật giao thông và tình huống. Trước khi thi, các bạn đối chiếu tài liệu của trường dạy lái và Sở Giao thông đường bộ Síp.'],
+];
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'LearningResource', name: 'Biển báo giao thông Síp: học và trắc nghiệm', inLanguage: 'vi', learningResourceType: 'Quiz', educationalLevel: 'Người học lái xe ở Síp', isAccessibleForFree: true, url: 'https://www.cuocsongdaosip.com/hoc/bang-lai/' },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
+---
+<Base title="Biển báo giao thông Síp: học và trắc nghiệm bằng lái bằng tiếng Việt" description={`${signs.length} biển báo giao thông ở Síp có tên tiếng Việt và tiếng Anh, học theo nhóm và làm trắc nghiệm ngay trên điện thoại. Miễn phí, không cần đăng ký.`} active="hoc" crumbs={[['Học & thi', '/hoc/'], ['Bằng lái', '/hoc/bang-lai/']]} jsonld={ld}>
+  <div class="wrap">
+    <p class="crumb"><a href="/">Trang chủ</a> / <a href="/hoc/">Học &amp; thi</a> / Bằng lái</p>
+    <h1>Biển báo giao thông Síp</h1>
+    <p class="muted lead">{signs.length} biển báo hay gặp ở Síp, có tên tiếng Việt và tiếng Anh. Học theo nhóm trước, rồi làm trắc nghiệm. Miễn phí, không cần đăng ký.</p>
+
+    <div class="modes" role="tablist" aria-label="Chế độ">
+      <button type="button" role="tab" data-m="learn" aria-selected="true">Học biển báo</button>
+      <button type="button" role="tab" data-m="quiz" aria-selected="false">Trắc nghiệm</button>
+    </div>
+
+    <section id="learn">
+      <div class="chips" role="group" aria-label="Nhóm biển">
+        <button type="button" data-c="" aria-pressed="true">Tất cả <span>{signs.length}</span></button>
+        {cats.map((c) => <button type="button" data-c={c} aria-pressed="false">{CAT[c]} <span>{signs.filter((s) => s.cat === c).length}</span></button>)}
+      </div>
+      {cats.map((c) => (
+        <div class="group" data-c={c}>
+          <h2>{CAT[c]}</h2>
+          <ul class="grid">
+            {signs.filter((s) => s.cat === c).map((s) => (
+              <li class="sign"><img src={s.img} alt={s.vi} loading="lazy" width="96" height="96" /><span class="vi">{s.vi}</span><span class="en">{s.en}</span></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <section id="quiz" hidden aria-live="polite">
+      <div id="setup" class="setup">
+        <h2>Làm trắc nghiệm</h2>
+        <p class="muted">Mỗi câu là một biển báo, chọn đúng ý nghĩa trong bốn đáp án.</p>
+        <label>Kiểu làm
+          <select id="q-mode"><option value="practice">Luyện tập: biết đúng sai ngay</option><option value="exam">Thi thử: xem kết quả cuối bài</option></select>
+        </label>
+        <label>Nhóm biển
+          <select id="q-cat"><option value="">Tất cả nhóm</option>{cats.map((c) => <option value={c}>{CAT[c]}</option>)}</select>
+        </label>
+        <label>Số câu
+          <select id="q-n"><option>10</option><option selected>20</option><option>40</option></select>
+        </label>
+        <p class="best" id="best"></p>
+        <button class="btn" type="button" id="start">Bắt đầu</button>
+      </div>
+      <div id="play" hidden>
+        <div class="bar"><span id="pos"></span><span id="score"></span></div>
+        <div class="progress"><span id="prog"></span></div>
+        <figure class="q"><img id="q-img" alt="Biển báo cần nhận biết" width="200" height="200" /></figure>
+        <p class="ask">Biển này nghĩa là gì?</p>
+        <div id="opts" class="opts"></div>
+        <p id="fb" class="fb"></p>
+        <button class="btn" type="button" id="next" hidden>Câu tiếp</button>
+      </div>
+      <div id="done" hidden>
+        <h2 id="res-h"></h2>
+        <p id="res-p" class="muted"></p>
+        <p class="acts"><button class="btn" type="button" id="again">Làm lại</button><button class="btn ghost" type="button" id="wrongonly" hidden>Làm lại các câu sai</button></p>
+        <ul id="review" class="review"></ul>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>Hỏi nhanh</h2>
+      {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+    </section>
+    <p class="note">Tài liệu tham khảo để làm quen biển báo, không thay tài liệu thi chính thức. Hình biển báo lấy từ Wikimedia Commons (bài "Road signs in Cyprus"), dữ liệu gốc từ dự án mã nguồn mở <a href="https://github.com/mrfeod/cysigns" rel="noopener">cysigns</a>; tên tiếng Việt do Cuộc Sống Đảo Síp dịch. Thấy biển nào dịch chưa chuẩn, các bạn nhắn mình sửa nhé.</p>
+  </div>
+
+  <script type="application/json" id="signs-data" set:html={JSON.stringify(signs)} />
+  <style is:global>
+    .lead { font-size: 17px; max-width: 62ch; }
+    .modes { display: flex; gap: 4px; background: var(--stone); padding: 4px; border-radius: 999px; max-width: 420px; margin: 18px 0 10px; }
+    .modes button { flex: 1; border: 0; background: none; border-radius: 999px; padding: 10px; font: 500 15px var(--text); color: var(--muted); cursor: pointer; }
+    .modes button[aria-selected="true"] { background: #fff; color: var(--sea); box-shadow: 0 1px 4px rgba(18,80,122,.15); }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding: 6px 0 4px; }
+    .chips button { flex: none; font: 400 14px var(--text); border: 1px solid var(--line); background: #fff; color: var(--ink); padding: 7px 13px; border-radius: 999px; cursor: pointer; }
+    .chips button span { color: var(--muted); font-size: 12.5px; }
+    .chips button[aria-pressed="true"] { background: var(--sea); border-color: var(--sea); color: #fff; }
+    .chips button[aria-pressed="true"] span { color: #CFE2EC; }
+    .group h2 { font-size: 22px; margin: 26px 0 10px; }
+    .grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .sign { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 12px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+    .sign img { width: 84px; height: 84px; object-fit: contain; margin-bottom: 4px; }
+    .sign .vi { font-size: 14px; font-weight: 500; line-height: 1.35; }
+    .sign .en { font-size: 12px; color: var(--muted); line-height: 1.3; }
+    .setup { max-width: 460px; display: grid; gap: 14px; margin-top: 10px; }
+    .setup h2 { margin: 0; }
+    .setup label { display: grid; gap: 6px; font-weight: 500; font-size: 15px; }
+    .setup select { padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; font: 400 16px var(--text); background: #fff; color: var(--ink); }
+    .best { margin: 0; font-size: 14px; color: var(--olive); }
+    #play, #done { max-width: 560px; }
+    .bar { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); margin-top: 14px; }
+    .progress { height: 6px; background: var(--stone); border-radius: 999px; overflow: hidden; margin: 6px 0 16px; }
+    .progress span { display: block; height: 100%; width: 0; background: var(--sea); transition: width .2s; }
+    .q { margin: 0; display: grid; place-items: center; background: var(--stone); border-radius: var(--r-lg); padding: 18px; }
+    .q img { width: 180px; height: 180px; object-fit: contain; }
+    .ask { font-weight: 500; margin: 16px 0 10px; }
+    .opts { display: grid; gap: 8px; }
+    .opts button { text-align: left; border: 1.5px solid var(--line); background: #fff; border-radius: 12px; padding: 12px 14px; font: 400 15.5px/1.4 var(--text); color: var(--ink); cursor: pointer; }
+    .opts button small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+    .opts button:hover:not(:disabled) { border-color: var(--sea); }
+    .opts button.ok { border-color: #2E7D5B; background: #EAF5EF; }
+    .opts button.bad { border-color: #B3261E; background: #FBECEB; }
+    .opts button.pick { border-color: var(--sea); background: #EAF1F6; }
+    .opts button:disabled { cursor: default; }
+    .fb { min-height: 1.4em; font-weight: 500; margin: 12px 0; }
+    .fb.ok { color: #2E7D5B; } .fb.bad { color: #B3261E; }
+    .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+    .review { list-style: none; padding: 0; margin: 18px 0 0; }
+    .review li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+    .review img { width: 56px; height: 56px; object-fit: contain; }
+    .review .was { color: #B3261E; display: block; font-size: 13px; }
+    .faq { max-width: 760px; margin-top: 40px; }
+    .faq details { border-bottom: 1px solid var(--line); padding: 4px 0; }
+    .faq summary { cursor: pointer; padding: 12px 0; font-weight: 500; }
+    .faq details p { margin: 0 0 14px; }
+  </style>
+  <script>
+    type S = { id: number; img: string; en: string; vi: string; cat: string };
+    const SIGNS: S[] = JSON.parse(document.getElementById('signs-data')!.textContent!);
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch {} } };
+
+    // Chế độ học / trắc nghiệm
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.modes button');
+    function mode(m: string) {
+      tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.m === m)));
+      $('learn').hidden = m !== 'learn'; $('quiz').hidden = m !== 'quiz';
+      if (location.hash !== '#' + m) history.replaceState(null, '', m === 'quiz' ? '#trac-nghiem' : location.pathname);
+    }
+    tabs.forEach((t) => (t.onclick = () => mode(t.dataset.m!)));
+    if (location.hash === '#trac-nghiem') mode('quiz');
+
+    // Lọc nhóm
+    const chips = document.querySelectorAll<HTMLButtonElement>('.chips button');
+    chips.forEach((b) => (b.onclick = () => {
+      chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      document.querySelectorAll<HTMLElement>('.group').forEach((g) => (g.hidden = !!b.dataset.c && g.dataset.c !== b.dataset.c));
+    }));
+
+    // Trắc nghiệm
+    const shuffle = <T,>(a: T[]) => { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
+    const key = (s: S) => s.vi.toLowerCase();
+    let qs: S[] = [], i = 0, right = 0, picks: (S | null)[] = [], exam = false;
+    function best() { const b = store.get('csds.bb.best'); $('best').textContent = b ? `Điểm cao nhất của bạn: ${b}` : ''; }
+    best();
+    function options(q: S) {
+      const same = shuffle(SIGNS.filter((s) => s.cat === q.cat && key(s) !== key(q)));
+      const other = shuffle(SIGNS.filter((s) => s.cat !== q.cat && key(s) !== key(q)));
+      const seen = new Set([key(q)]); const out = [q];
+      for (const s of [...same, ...other]) { if (out.length === 4) break; if (!seen.has(key(s))) { seen.add(key(s)); out.push(s); } }
+      return shuffle(out);
+    }
+    function start(pool?: S[]) {
+      exam = ($('q-mode') as HTMLSelectElement).value === 'exam';
+      const cat = ($('q-cat') as HTMLSelectElement).value;
+      const n = +($('q-n') as HTMLSelectElement).value;
+      qs = pool ?? shuffle(SIGNS.filter((s) => !cat || s.cat === cat)).slice(0, n);
+      i = 0; right = 0; picks = [];
+      $('setup').hidden = true; $('done').hidden = true; $('play').hidden = false;
+      show();
+    }
+    function show() {
+      const q = qs[i];
+      $('pos').textContent = `Câu ${i + 1}/${qs.length}`;
+      $('score').textContent = exam ? '' : `Đúng ${right}`;
+      $('prog').style.width = `${(i / qs.length) * 100}%`;
+      ($('q-img') as HTMLImageElement).src = q.img;
+      $('fb').textContent = ''; $('fb').className = 'fb'; $('next').hidden = true;
+      const box = $('opts'); box.innerHTML = '';
+      for (const o of options(q)) {
+        const b = document.createElement('button'); b.type = 'button';
+        b.innerHTML = `${o.vi}<small>${o.en}</small>`; b.dataset.k = key(o);
+        b.onclick = () => answer(o, b);
+        box.appendChild(b);
+      }
+      (box.firstElementChild as HTMLElement)?.focus({ preventScroll: true });
+    }
+    function answer(o: S, b: HTMLButtonElement) {
+      const q = qs[i]; const ok = key(o) === key(q);
+      if (ok) right++; picks.push(ok ? null : o);
+      const btns = [...$('opts').querySelectorAll<HTMLButtonElement>('button')];
+      btns.forEach((x) => (x.disabled = true));
+      if (exam) { b.classList.add('pick'); setTimeout(nextQ, 250); return; }
+      btns.forEach((x) => { if (x.dataset.k === key(q)) x.classList.add('ok'); });
+      if (!ok) b.classList.add('bad');
+      $('fb').textContent = ok ? 'Đúng rồi.' : `Chưa đúng. Đáp án: ${q.vi}.`;
+      $('fb').className = 'fb ' + (ok ? 'ok' : 'bad');
+      $('score').textContent = `Đúng ${right}`;
+      $('next').hidden = false; $('next').textContent = i + 1 < qs.length ? 'Câu tiếp' : 'Xem kết quả';
+      $('next').focus({ preventScroll: true });
+    }
+    function nextQ() { i++; if (i < qs.length) show(); else finish(); }
+    function finish() {
+      $('play').hidden = true; $('done').hidden = false;
+      const pct = Math.round((right / qs.length) * 100);
+      $('res-h').textContent = `Bạn đúng ${right}/${qs.length} câu (${pct}%)`;
+      $('res-p').textContent = pct >= 90 ? 'Rất tốt, bạn đã nắm chắc nhóm biển này.' : pct >= 70 ? 'Khá ổn. Xem lại các biển sai bên dưới rồi làm lại nhé.' : 'Bạn nên quay lại phần Học biển báo, xem theo nhóm rồi làm lại.';
+      const prev = +(store.get('csds.bb.pct') || 0);
+      if (qs.length >= 10 && pct > prev) { store.set('csds.bb.pct', String(pct)); store.set('csds.bb.best', `${right}/${qs.length} câu (${pct}%)`); }
+      best();
+      const wrong = qs.map((q, k) => [q, picks[k]] as const).filter(([, p]) => p);
+      $('review').innerHTML = wrong.map(([q, p]) => `<li><img src="${q.img}" alt=""><span><b>${q.vi}</b><span class="was">Bạn chọn: ${p!.vi}</span></span></li>`).join('');
+      const wb = $<HTMLButtonElement>('wrongonly'); wb.hidden = !wrong.length;
+      wb.onclick = () => start(shuffle(wrong.map(([q]) => q)));
+    }
+    $('start').onclick = () => start();
+    $('next').onclick = nextQ;
+    $('again').onclick = () => { $('done').hidden = true; $('setup').hidden = false; };
+  </script>
+</Base>

@@ -11,7 +11,6 @@ const lead = writing[0];
 const news = posts.filter((p) => p.section === 'tin-tuc' && p.slug !== lead?.slug).slice(0, 5);
 const life = posts.filter((p) => p.section === 'kinh-nghiem' && p.slug !== lead?.slug).slice(0, 8);
 const videos = posts.filter((p) => p.section === 'video').slice(0, 8);
-const study = posts.filter((p) => p.section === 'hoc-tap').slice(0, 3);
 const today = new Date().toISOString().slice(0, 10);
 const events = await getEvents();
 const upcoming = events.filter((e) => (e.ends_on ?? e.starts_on) >= today).sort((a, b) => a.starts_on.localeCompare(b.starts_on)).slice(0, 4);
@@ -41,6 +40,33 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
 
   <div class="wrap">
     {lead && <div class="lead"><PostTile p={lead} big /></div>}
+
+    <section class="study" aria-labelledby="study-h">
+      <div class="study-head">
+        <h2 id="study-h">Học &amp; thi ở Síp</h2>
+        <p>Tự học miễn phí ngay trên điện thoại: biển báo để thi bằng lái, tiếng Hy Lạp để xin quốc tịch.</p>
+      </div>
+      <div class="study-cards">
+        <a class="sc main" href="/hoc/bang-lai/">
+          <img src="/hoc/bien-bao/Cyprus_road_sign_-_STOP.svg" alt="" width="64" height="64" />
+          <span class="t">Biển báo &amp; trắc nghiệm bằng lái</span>
+          <span class="d">170 biển báo có tên tiếng Việt, luyện tập và thi thử. Làm ngay, không cần đăng ký.</span>
+          <span class="go">Học ngay</span>
+        </a>
+        <a class="sc" href="/hoc/tieng-hy-lap/">
+          <span class="ab" aria-hidden="true">Αα</span>
+          <span class="t">Học tiếng Hy Lạp</span>
+          <span class="d">Mỗi ngày 30 phút, từ bảng chữ cái tới trình độ thi chứng chỉ. Đăng ký miễn phí.</span>
+          <span class="go">Vào học</span>
+        </a>
+        <a class="sc soon" href="/hoc/">
+          <span class="ab" aria-hidden="true">CY</span>
+          <span class="t">Thi thử quốc tịch</span>
+          <span class="d">Câu hỏi văn hoá, xã hội Síp theo đề cương thi. Sắp có.</span>
+          <span class="go">Xem Khu Học</span>
+        </a>
+      </div>
+    </section>
 
     <section class="az" aria-labelledby="az-h">
       <div class="sec-head"><h2 id="az-h">Sổ tay A-Z</h2><a href="/a-z/">Xem cả sổ tay</a></div>
@@ -96,14 +122,7 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
       ))}
     </section>
 
-    <section class="learn" aria-labelledby="hoc-h">
-      <div class="box">
-        <h2 id="hoc-h">Học tiếng Hy Lạp, bằng lái, quốc tịch</h2>
-        <p>{SECTIONS['hoc-tap'].blurb} Khu Học có bài tiếng Hy Lạp mỗi ngày 30 phút, đang mở bản thử nghiệm cho bạn đọc đã đăng ký.</p>
-        <p><a class="btn" href="/hoc/">Vào Khu Học</a></p>
-      </div>
-      <div>{study.map((p) => <PostRow p={p} />)}</div>
-    </section>
+
   </div>
 
   <style>
@@ -112,6 +131,21 @@ const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity
     .who img { width: 56px; height: 56px; border-radius: 50%; flex: none; border: 2px solid #fff; }
     .who p { margin: 0; font-size: 15.5px; }
     .hello h1 { margin: 20px 0 0; }
+    .study { margin-top: 34px; background: var(--sea); border-radius: var(--r-lg); padding: 22px 18px 20px; color: #E3EEF4; }
+    .study-head h2 { color: #fff; margin: 0 0 4px; }
+    .study-head p { margin: 0 0 16px; font-size: 15.5px; }
+    .study-cards { display: grid; gap: 10px; }
+    @media (min-width: 800px) { .study { padding: 28px; } .study-cards { grid-template-columns: 1.3fr 1fr 1fr; } }
+    .sc { display: grid; grid-template-columns: 56px 1fr; grid-template-rows: auto auto auto; column-gap: 14px; row-gap: 4px; align-items: start; background: #fff; color: var(--ink); border-radius: 14px; padding: 16px; text-decoration: none; }
+    .sc img, .sc .ab { grid-row: 1 / span 3; width: 56px; height: 56px; }
+    .sc .ab { display: grid; place-items: center; border-radius: 12px; background: var(--stone); color: var(--sea); font-family: var(--display); font-weight: 700; font-size: 22px; }
+    .sc .t { font-family: var(--display); font-weight: 600; font-size: 18.5px; line-height: 1.25; }
+    .sc .d { font-size: 14.5px; color: var(--muted); line-height: 1.45; }
+    .sc .go { font-size: 14.5px; font-weight: 500; color: var(--sea); margin-top: 4px; }
+    .sc.main { box-shadow: inset 0 0 0 2px var(--copper); }
+    .sc.main .go { color: var(--copper); }
+    .sc.soon { opacity: .85; }
+    .sc:hover .t { color: var(--sea); }
     .tag-line { font-size: 18px; color: var(--muted); margin: 6px 0 0; }
     .about { max-width: 760px; margin-top: 44px; }
     .about p { font-size: 17px; }

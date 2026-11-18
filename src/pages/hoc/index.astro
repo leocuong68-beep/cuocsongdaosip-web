@@ -4,7 +4,7 @@ import PostRow from '../../components/PostRow.astro';
 import { bySection } from '../../lib/db';
 const posts = await bySection('hoc-tap');
 ---
-<Base title="Khu Học: tiếng Hy Lạp, bằng lái, thi quốc tịch Síp | Cuộc Sống Đảo Síp A-Z" description="Học tiếng Hy Lạp cho người Việt ở Síp, kinh nghiệm thi bằng lái và thi quốc tịch Síp. Khu Học miễn phí, mở cho bạn đọc đã đăng ký và được duyệt." active="hoc">
+<Base title="Học tiếng Hy Lạp, biển báo bằng lái, thi quốc tịch ở Đảo Síp" description="Học tiếng Hy Lạp cho người Việt ở Síp, kinh nghiệm thi bằng lái và thi quốc tịch Síp. Khu Học miễn phí, mở cho bạn đọc đã đăng ký và được duyệt." active="hoc">
   <div class="wrap narrow">
     <p class="crumb"><a href="/">Trang chủ</a> / Học & thi</p>
     <h1>Học tiếng Hy Lạp, bằng lái, quốc tịch</h1>
@@ -23,11 +23,11 @@ const posts = await bySection('hoc-tap');
         <h2>Thi thử quốc tịch</h2>
         <p>Câu hỏi về chính trị, xã hội và văn hoá Síp theo đề cương của Sở Khảo thí.</p>
       </div>
-      <div class="course soon">
-        <span class="tag off">Sắp có</span>
-        <h2>Lý thuyết bằng lái</h2>
-        <p>Luật giao thông ở Síp và bài thi thử lý thuyết.</p>
-      </div>
+      <a class="course" href="/hoc/bang-lai/">
+        <span class="tag">Mở cho mọi người, không cần đăng ký</span>
+        <h2>Biển báo và trắc nghiệm bằng lái</h2>
+        <p>170 biển báo giao thông Síp có tên tiếng Việt, học theo nhóm rồi làm trắc nghiệm luyện tập hoặc thi thử.</p>
+      </a>
     </div>
 
     {posts.length > 0 && <><h2 style="margin-top:36px">Bài viết về học và thi</h2>{posts.map((p) => <PostRow p={p} showCat={false} />)}</>}

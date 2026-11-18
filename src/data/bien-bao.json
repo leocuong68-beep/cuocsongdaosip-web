@@ -1,0 +1,1192 @@
+[
+{
+"id": 0,
+"img": "/hoc/bien-bao/UK_traffic_sign_543.svg",
+"en": "Traffic signals ahead",
+"vi": "Đèn tín hiệu giao thông phía trước",
+"cat": "canh-bao"
+},
+{
+"id": 1,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_crossroads.svg",
+"en": "Crossroads",
+"vi": "Giao nhau (ngã tư)",
+"cat": "canh-bao"
+},
+{
+"id": 2,
+"img": "/hoc/bien-bao/UK_traffic_sign_505.1__left_.svg",
+"en": "T-junction",
+"vi": "Ngã ba chữ T",
+"cat": "canh-bao"
+},
+{
+"id": 3,
+"img": "/hoc/bien-bao/UK_traffic_sign_506.1__variant_1__right_.svg",
+"en": "Side road",
+"vi": "Đường nhánh phía trước",
+"cat": "canh-bao"
+},
+{
+"id": 4,
+"img": "/hoc/bien-bao/UK_traffic_sign_507.1__variant_1__right_.svg",
+"en": "Staggered junction",
+"vi": "Hai ngã ba so le",
+"cat": "canh-bao"
+},
+{
+"id": 5,
+"img": "/hoc/bien-bao/UK_traffic_sign_508.1.svg",
+"en": "Traffic merges from the left",
+"vi": "Xe nhập làn từ bên trái",
+"cat": "canh-bao"
+},
+{
+"id": 6,
+"img": "/hoc/bien-bao/UK_traffic_sign_509.1.svg",
+"en": "Traffic merges onto the main carriageway",
+"vi": "Xe nhập vào đường chính",
+"cat": "canh-bao"
+},
+{
+"id": 7,
+"img": "/hoc/bien-bao/UK_traffic_sign_510.svg",
+"en": "Roundabout",
+"vi": "Vòng xuyến phía trước",
+"cat": "canh-bao"
+},
+{
+"id": 8,
+"img": "/hoc/bien-bao/UK_traffic_sign_512__right_.svg",
+"en": "Bend to right (left if symbol reversed)",
+"vi": "Khúc cua phải (biểu tượng ngược lại là cua trái)",
+"cat": "canh-bao"
+},
+{
+"id": 9,
+"img": "/hoc/bien-bao/UK_traffic_sign_513__left_.svg",
+"en": "Double bend first to the left (right if symbol reversed)",
+"vi": "Đường cong kép, cua trái trước (ngược lại là cua phải trước)",
+"cat": "canh-bao"
+},
+{
+"id": 10,
+"img": "/hoc/bien-bao/UK_traffic_sign_512.1__right_.svg",
+"en": "Junction on a bend (symbols may be reversed)",
+"vi": "Ngã ba trên khúc cua",
+"cat": "canh-bao"
+},
+{
+"id": 11,
+"img": "/hoc/bien-bao/UK_traffic_sign_512.2__right_.svg",
+"en": "Junction on a bend (symbols may be reversed)",
+"vi": "Ngã ba trên khúc cua",
+"cat": "canh-bao"
+},
+{
+"id": 12,
+"img": "/hoc/bien-bao/UK_traffic_sign_516.svg",
+"en": "Road narrows on both sides",
+"vi": "Đường hẹp cả hai bên",
+"cat": "canh-bao"
+},
+{
+"id": 13,
+"img": "/hoc/bien-bao/UK_traffic_sign_517__right_.svg",
+"en": "Road narrows on the right (left if symbols reversed)",
+"vi": "Đường hẹp bên phải (ngược lại là bên trái)",
+"cat": "canh-bao"
+},
+{
+"id": 14,
+"img": "/hoc/bien-bao/UK_traffic_sign_520.svg",
+"en": "End of dual carriageway",
+"vi": "Hết đường đôi",
+"cat": "canh-bao"
+},
+{
+"id": 15,
+"img": "/hoc/bien-bao/UK_traffic_sign_521.svg",
+"en": "Two-way traffic",
+"vi": "Đường hai chiều",
+"cat": "canh-bao"
+},
+{
+"id": 16,
+"img": "/hoc/bien-bao/UK_traffic_sign_522.svg",
+"en": "Two-way traffic on route crossing ahead",
+"vi": "Đường hai chiều ở đường cắt ngang phía trước",
+"cat": "canh-bao"
+},
+{
+"id": 17,
+"img": "/hoc/bien-bao/UK_traffic_sign_523.1.svg",
+"en": "Steep descent",
+"vi": "Dốc xuống nguy hiểm",
+"cat": "canh-bao"
+},
+{
+"id": 18,
+"img": "/hoc/bien-bao/UK_traffic_sign_524.1.svg",
+"en": "Steep ascent",
+"vi": "Dốc lên nguy hiểm",
+"cat": "canh-bao"
+},
+{
+"id": 19,
+"img": "/hoc/bien-bao/UK_traffic_sign_529.svg",
+"en": "Opening or swing bridge",
+"vi": "Cầu mở hoặc cầu xoay",
+"cat": "canh-bao"
+},
+{
+"id": 20,
+"img": "/hoc/bien-bao/UK_traffic_sign_555.svg",
+"en": "Riverbank or quayside",
+"vi": "Bờ sông hoặc bến cảng",
+"cat": "canh-bao"
+},
+{
+"id": 21,
+"img": "/hoc/bien-bao/UK_traffic_sign_555.1.svg",
+"en": "Water course alongside road",
+"vi": "Kênh nước chạy dọc đường",
+"cat": "canh-bao"
+},
+{
+"id": 22,
+"img": "/hoc/bien-bao/UK_traffic_sign_556.1.svg",
+"en": "Soft verges",
+"vi": "Lề đường mềm, yếu",
+"cat": "canh-bao"
+},
+{
+"id": 23,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_friable_street.svg",
+"en": "Soft verges",
+"vi": "Lề đường mềm, yếu",
+"cat": "canh-bao"
+},
+{
+"id": 24,
+"img": "/hoc/bien-bao/UK_traffic_sign_529.1.svg",
+"en": "Tunnel",
+"vi": "Hầm chui",
+"cat": "canh-bao"
+},
+{
+"id": 25,
+"img": "/hoc/bien-bao/UK_traffic_sign_528.svg",
+"en": "Hump bridge",
+"vi": "Cầu vồng lên (khuất tầm nhìn)",
+"cat": "canh-bao"
+},
+{
+"id": 26,
+"img": "/hoc/bien-bao/UK_traffic_sign_556.svg",
+"en": "Uneven road",
+"vi": "Đường gồ ghề",
+"cat": "canh-bao"
+},
+{
+"id": 27,
+"img": "/hoc/bien-bao/UK_traffic_sign_557.svg",
+"en": "Slippery road",
+"vi": "Đường trơn trượt",
+"cat": "canh-bao"
+},
+{
+"id": 28,
+"img": "/hoc/bien-bao/UK_traffic_sign_581.svg",
+"en": "Side winds",
+"vi": "Gió tạt ngang",
+"cat": "canh-bao"
+},
+{
+"id": 29,
+"img": "/hoc/bien-bao/UK_traffic_sign_558.svg",
+"en": "Low-flying aircraft or sudden aircraft noise",
+"vi": "Máy bay bay thấp, tiếng ồn đột ngột",
+"cat": "canh-bao"
+},
+{
+"id": 30,
+"img": "/hoc/bien-bao/UK_traffic_sign_558.1.svg",
+"en": "Low-flying helicopters or sudden helicopter noise",
+"vi": "Trực thăng bay thấp, tiếng ồn đột ngột",
+"cat": "canh-bao"
+},
+{
+"id": 31,
+"img": "/hoc/bien-bao/UK_traffic_sign_559__left_.svg",
+"en": "Falling or fallen rocks",
+"vi": "Đá rơi, đá lở",
+"cat": "canh-bao"
+},
+{
+"id": 32,
+"img": "/hoc/bien-bao/UK_traffic_sign_584.svg",
+"en": "Traffic queues likely ahead",
+"vi": "Có thể ùn tắc phía trước",
+"cat": "canh-bao"
+},
+{
+"id": 33,
+"img": "/hoc/bien-bao/UK_traffic_sign_582.svg",
+"en": "Slow-moving military vehicles likely to be in or crossing the road",
+"vi": "Xe quân sự chạy chậm trên đường",
+"cat": "canh-bao"
+},
+{
+"id": 34,
+"img": "/hoc/bien-bao/UK_traffic_sign_583.svg",
+"en": "Slow-moving vehicles",
+"vi": "Xe chạy chậm",
+"cat": "canh-bao"
+},
+{
+"id": 35,
+"img": "/hoc/bien-bao/UK_traffic_sign_554.2.svg",
+"en": "Ice or Snowdrifts",
+"vi": "Băng tuyết, đường đóng băng",
+"cat": "canh-bao"
+},
+{
+"id": 36,
+"img": "/hoc/bien-bao/UK_traffic_sign_562.svg",
+"en": "Other dangers (plate must be used to indicate the hazard)",
+"vi": "Nguy hiểm khác (có biển phụ ghi rõ)",
+"cat": "canh-bao"
+},
+{
+"id": 37,
+"img": "/hoc/bien-bao/UK_traffic_sign_544.svg",
+"en": "Zebra crossing",
+"vi": "Vạch qua đường cho người đi bộ",
+"cat": "canh-bao"
+},
+{
+"id": 38,
+"img": "/hoc/bien-bao/UK_traffic_sign_544.1.svg",
+"en": "Pedestrians ahead",
+"vi": "Người đi bộ phía trước",
+"cat": "canh-bao"
+},
+{
+"id": 39,
+"img": "/hoc/bien-bao/UK_traffic_sign_544.2.svg",
+"en": "Frail pedestrians likely to cross",
+"vi": "Người già, người yếu có thể qua đường",
+"cat": "canh-bao"
+},
+{
+"id": 40,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_child.svg",
+"en": "Children going to or from school",
+"vi": "Trẻ em đi học hoặc tan học",
+"cat": "canh-bao"
+},
+{
+"id": 41,
+"img": "/hoc/bien-bao/UK_traffic_sign_550.2.svg",
+"en": "Horse-drawn vehicleslikely to be in the road",
+"vi": "Xe ngựa kéo có thể trên đường",
+"cat": "canh-bao"
+},
+{
+"id": 42,
+"img": "/hoc/bien-bao/UK_traffic_sign_550.1.svg",
+"en": "Accompanied horses or ponies likely to be in or crossing the road",
+"vi": "Người dắt ngựa có thể trên đường",
+"cat": "canh-bao"
+},
+{
+"id": 43,
+"img": "/hoc/bien-bao/UK_traffic_sign_550.svg",
+"en": "Wild horsesor ponies",
+"vi": "Ngựa hoang",
+"cat": "canh-bao"
+},
+{
+"id": 44,
+"img": "/hoc/bien-bao/UK_traffic_sign_551.svg",
+"en": "Wild animals",
+"vi": "Thú hoang qua đường",
+"cat": "canh-bao"
+},
+{
+"id": 45,
+"img": "/hoc/bien-bao/UK_traffic_sign_553.1.svg",
+"en": "Agricultural vehicles",
+"vi": "Máy kéo, xe nông nghiệp",
+"cat": "canh-bao"
+},
+{
+"id": 46,
+"img": "/hoc/bien-bao/UK_traffic_sign_548.svg",
+"en": "Cattle",
+"vi": "Gia súc qua đường",
+"cat": "canh-bao"
+},
+{
+"id": 47,
+"img": "/hoc/bien-bao/UK_traffic_sign_772.svg",
+"en": "Tramway",
+"vi": "Đường xe điện (tàu điện)",
+"cat": "canh-bao"
+},
+{
+"id": 48,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_give_way_ahead.svg",
+"en": "Give way ahead (200 m)",
+"vi": "Nhường đường phía trước 200 m",
+"cat": "canh-bao"
+},
+{
+"id": 49,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_stop_ahead.svg",
+"en": "Stop ahead (50 m)",
+"vi": "Biển dừng (STOP) phía trước 50 m",
+"cat": "canh-bao"
+},
+{
+"id": 50,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_distance_to_level_crossing.svg",
+"en": "Distance to level crossing",
+"vi": "Khoảng cách tới đường sắt",
+"cat": "canh-bao"
+},
+{
+"id": 51,
+"img": "/hoc/bien-bao/Cyprus_road_sign_obstacle.svg",
+"en": "Obstacle",
+"vi": "Chướng ngại vật",
+"cat": "canh-bao"
+},
+{
+"id": 52,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_obstacle_left.svg",
+"en": "Obstacle left",
+"vi": "Chướng ngại vật, đi bên trái",
+"cat": "canh-bao"
+},
+{
+"id": 53,
+"img": "/hoc/bien-bao/Cyprus_warning_road_sign_obstacle_right.svg",
+"en": "Obstacle right",
+"vi": "Chướng ngại vật, đi bên phải",
+"cat": "canh-bao"
+},
+{
+"id": 54,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_hand_vehicles.svg",
+"en": "No hand vehicles",
+"vi": "Cấm xe đẩy tay",
+"cat": "cam"
+},
+{
+"id": 55,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_motorcycles.svg",
+"en": "No motorcycles",
+"vi": "Cấm mô tô",
+"cat": "cam"
+},
+{
+"id": 56,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_mopeds.svg",
+"en": "No mopeds",
+"vi": "Cấm xe máy nhỏ (moped)",
+"cat": "cam"
+},
+{
+"id": 57,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_motor_vehicles.svg",
+"en": "No motor vehicles",
+"vi": "Cấm xe cơ giới",
+"cat": "cam"
+},
+{
+"id": 58,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_agricle_vehicles.svg",
+"en": "No agricultural vehicles",
+"vi": "Cấm xe nông nghiệp",
+"cat": "cam"
+},
+{
+"id": 59,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_animal_vehicles.svg",
+"en": "No animal-drawn vehicles",
+"vi": "Cấm xe súc vật kéo",
+"cat": "cam"
+},
+{
+"id": 60,
+"img": "/hoc/bien-bao/Cyprus_road_sign_toll_post.svg",
+"en": "Toll post",
+"vi": "Trạm thu phí",
+"cat": "cam"
+},
+{
+"id": 61,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_horn.svg",
+"en": "No horn",
+"vi": "Cấm bấm còi",
+"cat": "cam"
+},
+{
+"id": 62,
+"img": "/hoc/bien-bao/Cyprus_road_sign_customs.svg",
+"en": "Customs",
+"vi": "Hải quan",
+"cat": "cam"
+},
+{
+"id": 63,
+"img": "/hoc/bien-bao/Cyprus_road_sign_minimum_distance.svg",
+"en": "Minimum distance",
+"vi": "Khoảng cách tối thiểu giữa hai xe",
+"cat": "cam"
+},
+{
+"id": 64,
+"img": "/hoc/bien-bao/UK_traffic_sign_619.svg",
+"en": "No motor vehicles (both car and motorcycle)",
+"vi": "Cấm ô tô và mô tô",
+"cat": "cam"
+},
+{
+"id": 65,
+"img": "/hoc/bien-bao/UK_traffic_sign_811.svg",
+"en": "Traffic has priority over vehicles from the opposite direction",
+"vi": "Được ưu tiên so với xe đi ngược chiều",
+"cat": "cam"
+},
+{
+"id": 66,
+"img": "/hoc/bien-bao/UK_traffic_sign_617.svg",
+"en": "Road closed to all vehicles in both directions",
+"vi": "Đường cấm mọi xe theo cả hai chiều",
+"cat": "cam"
+},
+{
+"id": 67,
+"img": "/hoc/bien-bao/Cyprus_road_sign_maximum_large.svg",
+"en": "No vehicles with a maximum width beyond 2 meters",
+"vi": "Cấm xe rộng quá 2 m",
+"cat": "cam"
+},
+{
+"id": 68,
+"img": "/hoc/bien-bao/Cyprus_road_sign_maximum_height.svg",
+"en": "No vehicles with a maximum height exceeding 3.8 meters",
+"vi": "Cấm xe cao quá 3,8 m",
+"cat": "cam"
+},
+{
+"id": 69,
+"img": "/hoc/bien-bao/UK_traffic_sign_622.1A.svg",
+"en": "No goods vehicles exceeding a weight of 7.5 t",
+"vi": "Cấm xe tải trên 7,5 tấn",
+"cat": "cam"
+},
+{
+"id": 70,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_heavy_vehicles.svg",
+"en": "No goods vehicles",
+"vi": "Cấm xe tải",
+"cat": "cam"
+},
+{
+"id": 71,
+"img": "/hoc/bien-bao/UK_traffic_sign_622.7.svg",
+"en": "No towed caravans",
+"vi": "Cấm xe kéo nhà lưu động (caravan)",
+"cat": "cam"
+},
+{
+"id": 72,
+"img": "/hoc/bien-bao/UK_traffic_sign_616.svg",
+"en": "No Entryfor vehicular traffic",
+"vi": "Cấm đi vào",
+"cat": "cam"
+},
+{
+"id": 73,
+"img": "/hoc/bien-bao/UK_traffic_sign_612.svg",
+"en": "No right turn for vehicular traffic",
+"vi": "Cấm rẽ phải",
+"cat": "cam"
+},
+{
+"id": 74,
+"img": "/hoc/bien-bao/UK_traffic_sign_613.svg",
+"en": "No left turn for vehicular traffic",
+"vi": "Cấm rẽ trái",
+"cat": "cam"
+},
+{
+"id": 75,
+"img": "/hoc/bien-bao/Cyprus_road_sign_maximum_speed.svg",
+"en": "Maximum speed limit",
+"vi": "Tốc độ tối đa",
+"cat": "cam"
+},
+{
+"id": 76,
+"img": "/hoc/bien-bao/Cyprus_road_sign_end_maximum_speed.svg",
+"en": "End of maximum speed limit",
+"vi": "Hết tốc độ tối đa",
+"cat": "cam"
+},
+{
+"id": 77,
+"img": "/hoc/bien-bao/UK_traffic_sign_615.svg",
+"en": "Priority must be given to vehicles from the opposite direction",
+"vi": "Nhường đường cho xe đi ngược chiều",
+"cat": "cam"
+},
+{
+"id": 78,
+"img": "/hoc/bien-bao/UK_traffic_sign_632.svg",
+"en": "No overtaking",
+"vi": "Cấm vượt",
+"cat": "cam"
+},
+{
+"id": 79,
+"img": "/hoc/bien-bao/Cyprus_road_sign_end_no_overpass.svg",
+"en": "End of no overtaking",
+"vi": "Hết cấm vượt",
+"cat": "cam"
+},
+{
+"id": 80,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_overpass_heavy_vehicles.svg",
+"en": "No overtaking by vehicles",
+"vi": "Cấm xe tải vượt",
+"cat": "cam"
+},
+{
+"id": 81,
+"img": "/hoc/bien-bao/Cyprus_road_sign_maximum_single_weight.svg",
+"en": "Maximum single weight",
+"vi": "Tải trọng tối đa trên một trục xe",
+"cat": "cam"
+},
+{
+"id": 82,
+"img": "/hoc/bien-bao/UK_traffic_sign_671.svg",
+"en": "End of all local bans on moving vehicles",
+"vi": "Hết mọi lệnh cấm",
+"cat": "cam"
+},
+{
+"id": 83,
+"img": "/hoc/bien-bao/Cyprus_road_sign_maximum_lenght.svg",
+"en": "Maximum length",
+"vi": "Chiều dài xe tối đa",
+"cat": "cam"
+},
+{
+"id": 84,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_water_heavy_vehicles.svg",
+"en": "No water heavy vehicles",
+"vi": "Cấm xe chở hàng có thể gây ô nhiễm nước",
+"cat": "cam"
+},
+{
+"id": 85,
+"img": "/hoc/bien-bao/Cyprus_road_sign_maximum_heavy.svg",
+"en": "Maximum heavy",
+"vi": "Tổng trọng lượng xe tối đa",
+"cat": "cam"
+},
+{
+"id": 86,
+"img": "/hoc/bien-bao/UK_traffic_sign_622.8.svg",
+"en": "Vehicles carrying explosives (such as fireworks) prohibited.",
+"vi": "Cấm xe chở chất nổ, pháo",
+"cat": "cam"
+},
+{
+"id": 87,
+"img": "/hoc/bien-bao/UK_traffic_sign_614.svg",
+"en": "No U-turns for vehicular traffic",
+"vi": "Cấm quay đầu",
+"cat": "cam"
+},
+{
+"id": 88,
+"img": "/hoc/bien-bao/Cyprus_road_sign_police.svg",
+"en": "Police",
+"vi": "Cảnh sát (dừng xe kiểm tra)",
+"cat": "uu-tien"
+},
+{
+"id": 89,
+"img": "/hoc/bien-bao/Cyprus_road_sign_-_STOP.svg",
+"en": "Stop sign",
+"vi": "Dừng lại (STOP)",
+"cat": "uu-tien"
+},
+{
+"id": 90,
+"img": "/hoc/bien-bao/Cyprus_road_sign_priority_road.svg",
+"en": "Priority road",
+"vi": "Đường ưu tiên",
+"cat": "uu-tien"
+},
+{
+"id": 91,
+"img": "/hoc/bien-bao/Cyprus_road_sign_end_priority_road.svg",
+"en": "End of priority road",
+"vi": "Hết đường ưu tiên",
+"cat": "uu-tien"
+},
+{
+"id": 92,
+"img": "/hoc/bien-bao/UK_traffic_sign_605.2.svg",
+"en": "Stop, crossroads by children",
+"vi": "Dừng lại, trẻ em qua đường",
+"cat": "uu-tien"
+},
+{
+"id": 93,
+"img": "/hoc/bien-bao/UK_traffic_sign_7024.svg",
+"en": "Go ahead or proceed for temporary road works using a hand sign",
+"vi": "Được đi (công trường, người cầm biển điều khiển)",
+"cat": "uu-tien"
+},
+{
+"id": 94,
+"img": "/hoc/bien-bao/Cyprus_road_sign_give_way.svg",
+"en": "Give way",
+"vi": "Nhường đường",
+"cat": "uu-tien"
+},
+{
+"id": 95,
+"img": "/hoc/bien-bao/Cyprus_road_sign_cross_guided.svg",
+"en": "Controlled block stopping is prohibited except when waiting for a right turn",
+"vi": "Nút giao có điều khiển: cấm dừng, trừ khi chờ rẽ phải",
+"cat": "uu-tien"
+},
+{
+"id": 96,
+"img": "/hoc/bien-bao/UK_traffic_sign_636.svg",
+"en": "No parking",
+"vi": "Cấm đỗ xe",
+"cat": "do-xe"
+},
+{
+"id": 97,
+"img": "/hoc/bien-bao/UK_traffic_sign_642.svg",
+"en": "No stopping",
+"vi": "Cấm dừng và đỗ xe",
+"cat": "do-xe"
+},
+{
+"id": 98,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_park_impares.svg",
+"en": "No parking on odd days",
+"vi": "Cấm đỗ xe ngày lẻ",
+"cat": "do-xe"
+},
+{
+"id": 99,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_park_pares.svg",
+"en": "No parking on even days",
+"vi": "Cấm đỗ xe ngày chẵn",
+"cat": "do-xe"
+},
+{
+"id": 100,
+"img": "/hoc/bien-bao/Cyprus_road_sign_no_parking_zone.svg",
+"en": "No parking zone",
+"vi": "Khu vực cấm đỗ xe",
+"cat": "do-xe"
+},
+{
+"id": 101,
+"img": "/hoc/bien-bao/Cyprus_road_sign_end_no_parking_zone.svg",
+"en": "End of no parking zone",
+"vi": "Hết khu vực cấm đỗ xe",
+"cat": "do-xe"
+},
+{
+"id": 102,
+"img": "/hoc/bien-bao/Cyprus_road_sign_mandatory_go_streight.svg",
+"en": "Go straight ahead only",
+"vi": "Chỉ được đi thẳng",
+"cat": "hieu-lenh"
+},
+{
+"id": 103,
+"img": "/hoc/bien-bao/UK_traffic_sign_606__left_.svg",
+"en": "Turn left",
+"vi": "Chỉ được rẽ trái",
+"cat": "hieu-lenh"
+},
+{
+"id": 104,
+"img": "/hoc/bien-bao/UK_traffic_sign_606__right_.svg",
+"en": "Turn right",
+"vi": "Chỉ được rẽ phải",
+"cat": "hieu-lenh"
+},
+{
+"id": 105,
+"img": "/hoc/bien-bao/UK_traffic_sign_609__left_.svg",
+"en": "Turn left ahead",
+"vi": "Rẽ trái phía trước",
+"cat": "hieu-lenh"
+},
+{
+"id": 106,
+"img": "/hoc/bien-bao/UK_traffic_sign_609__right_.svg",
+"en": "Turn right ahead",
+"vi": "Rẽ phải phía trước",
+"cat": "hieu-lenh"
+},
+{
+"id": 107,
+"img": "/hoc/bien-bao/Cyprus_road_sign_mandatory_go_or_left.svg",
+"en": "Go straight or turn left ahead",
+"vi": "Đi thẳng hoặc rẽ trái",
+"cat": "hieu-lenh"
+},
+{
+"id": 108,
+"img": "/hoc/bien-bao/Cyprus_road_sign_mandatory_go_or_right.svg",
+"en": "Go straight or turn right ahead",
+"vi": "Đi thẳng hoặc rẽ phải",
+"cat": "hieu-lenh"
+},
+{
+"id": 109,
+"img": "/hoc/bien-bao/Cyprus_road_sign_mandatory_left_or_right.svg",
+"en": "Turn left or right ahead",
+"vi": "Rẽ trái hoặc rẽ phải",
+"cat": "hieu-lenh"
+},
+{
+"id": 110,
+"img": "/hoc/bien-bao/UK_traffic_sign_610__left_.svg",
+"en": "Keep left",
+"vi": "Đi bên trái",
+"cat": "hieu-lenh"
+},
+{
+"id": 111,
+"img": "/hoc/bien-bao/UK_traffic_sign_610__right_.svg",
+"en": "Keep right",
+"vi": "Đi bên phải",
+"cat": "hieu-lenh"
+},
+{
+"id": 112,
+"img": "/hoc/bien-bao/UK_traffic_sign_611.svg",
+"en": "Pass on either side",
+"vi": "Được đi cả hai bên",
+"cat": "hieu-lenh"
+},
+{
+"id": 113,
+"img": "/hoc/bien-bao/UK_traffic_sign_611.1.svg",
+"en": "Roundabout",
+"vi": "Vòng xuyến (đi theo chiều mũi tên)",
+"cat": "hieu-lenh"
+},
+{
+"id": 114,
+"img": "/hoc/bien-bao/Cyprus_road_sign_one_way_road.svg",
+"en": "One-way traffic",
+"vi": "Đường một chiều",
+"cat": "hieu-lenh"
+},
+{
+"id": 115,
+"img": "/hoc/bien-bao/Cyprus_road_sign_one_way_lateral_road.svg",
+"en": "One-way lateral road",
+"vi": "Đường ngang là đường một chiều",
+"cat": "hieu-lenh"
+},
+{
+"id": 116,
+"img": "/hoc/bien-bao/UK_traffic_sign_672.svg",
+"en": "Minimum speed limit",
+"vi": "Tốc độ tối thiểu",
+"cat": "hieu-lenh"
+},
+{
+"id": 117,
+"img": "/hoc/bien-bao/UK_traffic_sign_673.svg",
+"en": "End of minimum speed limit",
+"vi": "Hết tốc độ tối thiểu",
+"cat": "hieu-lenh"
+},
+{
+"id": 118,
+"img": "/hoc/bien-bao/Cyprus_road_sign_mandatory_chains.svg",
+"en": "Snow chains mandatory",
+"vi": "Bắt buộc dùng xích chống trượt",
+"cat": "hieu-lenh"
+},
+{
+"id": 119,
+"img": "/hoc/bien-bao/Cyprus_road_sign_horse_street.svg",
+"en": "Horse street mandatory",
+"vi": "Đường dành cho người cưỡi ngựa",
+"cat": "hieu-lenh"
+},
+{
+"id": 120,
+"img": "/hoc/bien-bao/Cyprus_road_sign_mandatory_pedestrian_way.svg",
+"en": "Pedestrian road mandatory",
+"vi": "Đường dành cho người đi bộ",
+"cat": "hieu-lenh"
+},
+{
+"id": 121,
+"img": "/hoc/bien-bao/Cyprus_road_sign_road_bump_50.svg",
+"en": "Curving road surface, the speed limit is set at 50 km/h",
+"vi": "Mặt đường lồi lõm, giới hạn 50 km/h",
+"cat": "chi-dan"
+},
+{
+"id": 122,
+"img": "/hoc/bien-bao/Cyprus_road_sign_road_bump_30.svg",
+"en": "Curving road surface, the speed limit is set at 30 km/h",
+"vi": "Mặt đường lồi lõm, giới hạn 30 km/h",
+"cat": "chi-dan"
+},
+{
+"id": 123,
+"img": "/hoc/bien-bao/Cyprus_road_sign_humped_crossing.svg",
+"en": "Humped crossing",
+"vi": "Lối qua đường nâng cao (gờ)",
+"cat": "chi-dan"
+},
+{
+"id": 124,
+"img": "/hoc/bien-bao/Cyprus_road_sign_humped_pellcan_crossing.svg",
+"en": "Humped pellcan crossing",
+"vi": "Lối qua đường có đèn, nâng cao (gờ)",
+"cat": "chi-dan"
+},
+{
+"id": 125,
+"img": "/hoc/bien-bao/Cyprus_road_sign_school.svg",
+"en": "School",
+"vi": "Trường học",
+"cat": "chi-dan"
+},
+{
+"id": 126,
+"img": "/hoc/bien-bao/Cyprus_road_sign_road_humps_left.svg",
+"en": "Road humps left",
+"vi": "Gờ giảm tốc bên trái",
+"cat": "chi-dan"
+},
+{
+"id": 127,
+"img": "/hoc/bien-bao/Cyprus_road_sign_road_humps_right.svg",
+"en": "Road humps right",
+"vi": "Gờ giảm tốc bên phải",
+"cat": "chi-dan"
+},
+{
+"id": 128,
+"img": "/hoc/bien-bao/Cyprus_road_sign_road_humps.svg",
+"en": "Road humps",
+"vi": "Gờ giảm tốc",
+"cat": "chi-dan"
+},
+{
+"id": 129,
+"img": "/hoc/bien-bao/Cyprus_road_sign_next_destinations.svg",
+"en": "Confirmation sign",
+"vi": "Biển xác nhận hướng đi",
+"cat": "chi-dan"
+},
+{
+"id": 130,
+"img": "/hoc/bien-bao/Cyprus_road_sign_destinations_road_crossing.svg",
+"en": "Direction sign",
+"vi": "Biển chỉ hướng tại nút giao",
+"cat": "chi-dan"
+},
+{
+"id": 131,
+"img": "/hoc/bien-bao/Cyprus_road_sign_destinations_white.svg",
+"en": "Direction sign",
+"vi": "Biển chỉ hướng (nền trắng, đường địa phương)",
+"cat": "chi-dan"
+},
+{
+"id": 132,
+"img": "/hoc/bien-bao/Cyprus_road_sign_destinations_blue.svg",
+"en": "Direction sign",
+"vi": "Biển chỉ hướng (nền xanh, đường chính)",
+"cat": "chi-dan"
+},
+{
+"id": 133,
+"img": "/hoc/bien-bao/Cyprus_road_sign_bus_stop.svg",
+"en": "Bus stop",
+"vi": "Trạm xe buýt",
+"cat": "chi-dan"
+},
+{
+"id": 134,
+"img": "/hoc/bien-bao/Cyprus_road_sign_pedonal_crossing.svg",
+"en": "Pedestrian crossing",
+"vi": "Nơi người đi bộ qua đường",
+"cat": "chi-dan"
+},
+{
+"id": 135,
+"img": "/hoc/bien-bao/Cyprus_road_sign_parking.svg",
+"en": "Parking",
+"vi": "Bãi đỗ xe",
+"cat": "chi-dan"
+},
+{
+"id": 136,
+"img": "/hoc/bien-bao/Cyprus_road_sign_cul_de_sac.svg",
+"en": "Dead end straight ahead",
+"vi": "Đường cụt phía trước",
+"cat": "chi-dan"
+},
+{
+"id": 137,
+"img": "/hoc/bien-bao/Cyprus_road_sign_cul_de_sac_ahead_left.svg",
+"en": "Dead end left",
+"vi": "Đường cụt bên trái",
+"cat": "chi-dan"
+},
+{
+"id": 138,
+"img": "/hoc/bien-bao/Cyprus_road_sign_cul_de_sac_ahead_right.svg",
+"en": "Dead end right",
+"vi": "Đường cụt bên phải",
+"cat": "chi-dan"
+},
+{
+"id": 139,
+"img": "/hoc/bien-bao/Cyprus_road_sign_SOS.svg",
+"en": "Emergency phone",
+"vi": "Điện thoại khẩn cấp",
+"cat": "chi-dan"
+},
+{
+"id": 140,
+"img": "/hoc/bien-bao/Cyprus_road_sign_road_for_motorvehicles.svg",
+"en": "Express road",
+"vi": "Đường dành cho xe cơ giới",
+"cat": "chi-dan"
+},
+{
+"id": 141,
+"img": "/hoc/bien-bao/Cyprus_road_sign_end_road_for_motorvehicles.svg",
+"en": "End of expressway",
+"vi": "Hết đường dành cho xe cơ giới",
+"cat": "chi-dan"
+},
+{
+"id": 142,
+"img": "/hoc/bien-bao/Cyprus_road_sign_transitability.svg",
+"en": "Open road (Only for vehicles with snow chains)",
+"vi": "Đường thông, chỉ cho xe có xích chống trượt",
+"cat": "chi-dan"
+},
+{
+"id": 143,
+"img": "/hoc/bien-bao/Cyprus_road_sign_drive_on_the_left.svg",
+"en": "Warning for driving on the left (in Akrotiri and Dhekelia)",
+"vi": "Nhắc lái xe bên trái (khu căn cứ Akrotiri, Dhekelia)",
+"cat": "chi-dan"
+},
+{
+"id": 144,
+"img": "/hoc/bien-bao/Cyprus_road_sign_vehicles_exit.svg",
+"en": "Vehicle exit",
+"vi": "Lối ra của xe",
+"cat": "chi-dan"
+},
+{
+"id": 145,
+"img": "/hoc/bien-bao/Cyprus_road_sign_general_limits.svg",
+"en": "General speed limits",
+"vi": "Giới hạn tốc độ chung",
+"cat": "chi-dan"
+},
+{
+"id": 146,
+"img": "/hoc/bien-bao/Cyprus_road_sign_roundabound_destinations.svg",
+"en": "Direction sign at a roundabout",
+"vi": "Biển chỉ hướng tại vòng xuyến",
+"cat": "chi-dan"
+},
+{
+"id": 147,
+"img": "/hoc/bien-bao/Cyprus_road_sign_confirm.svg",
+"en": "Confirmation sign",
+"vi": "Biển xác nhận hướng đi",
+"cat": "chi-dan"
+},
+{
+"id": 148,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H7-V1-1.svg",
+"en": "Allowed only for disabled vehicles",
+"vi": "Chỉ dành cho xe người khuyết tật",
+"cat": "bien-phu"
+},
+{
+"id": 149,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H4a-V1-1.svg",
+"en": "Principle of validity of a no stopping and parking sign placed perpendicular to the axis of the street",
+"vi": "Phạm vi cấm dừng, đỗ: bắt đầu (biển đặt vuông góc với đường)",
+"cat": "bien-phu"
+},
+{
+"id": 150,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H4b-V1-1.svg",
+"en": "Repetition of the validity of a stop and parking prohibition sign placed perpendicular to the axis of the street",
+"vi": "Phạm vi cấm dừng, đỗ: tiếp tục (biển đặt vuông góc với đường)",
+"cat": "bien-phu"
+},
+{
+"id": 151,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H4c-V1-1.svg",
+"en": "End of validity of a stop and parking prohibition sign placed perpendicular to the axis of the street",
+"vi": "Phạm vi cấm dừng, đỗ: kết thúc (biển đặt vuông góc với đường)",
+"cat": "bien-phu"
+},
+{
+"id": 152,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H1-V1-1.svg",
+"en": "Distance from the sign to the dangerous point or area of prohibition or restriction",
+"vi": "Khoảng cách từ biển tới chỗ nguy hiểm hoặc chỗ bắt đầu cấm",
+"cat": "bien-phu"
+},
+{
+"id": 153,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H2-V1-1.svg",
+"en": "Length of the hazardous section or area in which a prohibition or restriction applies",
+"vi": "Chiều dài đoạn nguy hiểm hoặc đoạn áp dụng lệnh cấm",
+"cat": "bien-phu"
+},
+{
+"id": 154,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H3a-V1-1.svg",
+"en": "Principle of validity of a no stopping and parking sign placed parallel to the axis of the street. The validity of the plate extends over [e.g. 10 m] from the position of the sign and in the direction of the arrow",
+"vi": "Phạm vi cấm dừng, đỗ theo hướng mũi tên (biển đặt song song với đường)",
+"cat": "bien-phu"
+},
+{
+"id": 155,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H3b-V1-1.svg",
+"en": "Reminder of the validity of a no stopping and parking sign placed parallel to the axis of the street. The validity of the plate extends over (e.g. 5m) on both sides of the sign's location.",
+"vi": "Phạm vi cấm dừng, đỗ hai bên biển (biển đặt song song với đường)",
+"cat": "bien-phu"
+},
+{
+"id": 156,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H9-V1-1.svg",
+"en": "Icy road",
+"vi": "Đường đóng băng",
+"cat": "bien-phu"
+},
+{
+"id": 157,
+"img": "/hoc/bien-bao/Vienna_Convention_road_sign_H8b-V1-1.svg",
+"en": "Direction of priority road",
+"vi": "Hướng của đường ưu tiên",
+"cat": "bien-phu"
+},
+{
+"id": 158,
+"img": "/hoc/bien-bao/City_speed_limit_sign_in_Polis__Cyprus.svg",
+"en": "Entering a residential area - The speed limit is limited to a certain percentage. For example, entrance to the settlement of Polis, where the limit is set at 50 km/h.",
+"vi": "Vào khu dân cư (giới hạn tốc độ, ví dụ 50 km/h ở Polis)",
+"cat": "chi-dan"
+},
+{
+"id": 159,
+"img": "/hoc/bien-bao/Highway_begin_in_Cyprus.png",
+"en": "Highway",
+"vi": "Bắt đầu đường cao tốc",
+"cat": "chi-dan"
+},
+{
+"id": 160,
+"img": "/hoc/bien-bao/Informational_sign_on_a_motorway_in_Cyprus.svg",
+"en": "Highway exit warning",
+"vi": "Sắp tới lối ra đường cao tốc",
+"cat": "chi-dan"
+},
+{
+"id": 161,
+"img": "/hoc/bien-bao/Motorway_exit_sign_in_Cyprus.png",
+"en": "Motorway exit",
+"vi": "Lối ra đường cao tốc",
+"cat": "chi-dan"
+},
+{
+"id": 162,
+"img": "/hoc/bien-bao/UK_traffic_sign_955.svg",
+"en": "Cycle lane",
+"vi": "Làn xe đạp",
+"cat": "xe-dap"
+},
+{
+"id": 163,
+"img": "/hoc/bien-bao/UK_traffic_sign_957.svg",
+"en": "Cycle path separated from pedestrian path.",
+"vi": "Đường xe đạp tách riêng đường đi bộ",
+"cat": "xe-dap"
+},
+{
+"id": 164,
+"img": "/hoc/bien-bao/UK_traffic_sign_957R.svg",
+"en": "Cycle path separated from pedestrian path. (Alternative)",
+"vi": "Đường xe đạp tách riêng đường đi bộ",
+"cat": "xe-dap"
+},
+{
+"id": 165,
+"img": "/hoc/bien-bao/UK_traffic_sign_956.svg",
+"en": "Road shared by cyclists and pedestrians.",
+"vi": "Đường chung cho xe đạp và người đi bộ",
+"cat": "xe-dap"
+},
+{
+"id": 166,
+"img": "/hoc/bien-bao/UK_traffic_sign_953.svg",
+"en": "Road shared by bicycles and buses",
+"vi": "Làn chung cho xe đạp và xe buýt",
+"cat": "xe-dap"
+},
+{
+"id": 167,
+"img": "/hoc/bien-bao/UK_traffic_sign_951.svg",
+"en": "No bicycles allowed",
+"vi": "Cấm xe đạp",
+"cat": "xe-dap"
+},
+{
+"id": 168,
+"img": "/hoc/bien-bao/UK_traffic_sign_950.svg",
+"en": "Road with special measures for cyclists.",
+"vi": "Tuyến đường có biện pháp riêng cho xe đạp",
+"cat": "xe-dap"
+},
+{
+"id": 169,
+"img": "/hoc/bien-bao/UK_traffic_sign_879.svg",
+"en": "Speed camera",
+"vi": "Camera bắn tốc độ",
+"cat": "xe-dap"
+}
+]
