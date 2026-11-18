@@ -16,7 +16,7 @@ export const AZ_LIST: AZ[] = [
   { letter: 'M', term: 'Mua nhà', id: 'mua-nha', line: 'Quy trình, hợp đồng, phí chuyển nhượng, nhà mới hay nhà cũ.', keys: ['mua nhà', 'hợp đồng mua', 'phí chuyển nhượng', 'sổ đỏ', 'vay mua'] },
   { letter: 'N', term: 'Ngân hàng', id: 'ngan-hang', line: 'Mở tài khoản cần gì, mất bao lâu, vì sao hay bị hỏi kỹ.', keys: ['ngân hàng'] },
   { letter: 'Ô', term: 'Ô tô, xăng dầu', id: 'o-to', line: 'Mua xe, thuế đường bộ, kiểm định, bảo hiểm, giá xăng.', keys: ['ô tô', 'mua xe', 'xăng'] },
-  { letter: 'Q', term: 'Quốc tịch', id: 'quoc-tich', line: 'Điều kiện nhập tịch, thời gian cư trú, bài thi tiếng và kiến thức.', keys: ['quốc tịch'] },
+  { letter: 'Q', term: 'Quốc tịch', id: 'quoc-tich', line: 'Điều kiện nhập tịch, thời gian cư trú, bài thi tiếng và kiến thức; có bài thi thử.', keys: ['quốc tịch'], href: '/hoc/quoc-tich/' },
   { letter: 'S', term: 'Schengen', id: 'schengen', line: 'Síp chưa vào Schengen; tiến độ và ảnh hưởng tới người đang ở Síp.', keys: ['schengen'] },
   { letter: 'S', term: 'Sự kiện, lễ hội', id: 'su-kien', line: 'Lễ hội, chợ phiên và hoạt động cuối tuần trên đảo.', keys: ['lễ hội'], href: '/su-kien/' },
   { letter: 'T', term: 'Trường học cho con', id: 'truong-hoc', line: 'Trường công, trường quốc tế, học phí, du học đại học.', keys: ['trường học', 'đi học', 'du học'] },

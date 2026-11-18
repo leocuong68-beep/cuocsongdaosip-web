@@ -1,0 +1,268 @@
+---
+// Thi thử kiến thức chính trị, xã hội Síp (điều kiện nhập tịch và thường trú dài hạn). Miễn phí, không cần đăng nhập.
+// Thông tin kỳ thi lấy từ thông báo của Υπηρεσία Εξετάσεων (Bộ Giáo dục, Thể thao và Thanh niên Síp) và báo chí; câu hỏi do Cuộc Sống Đảo Síp soạn, không phải đề thật.
+import Base from '../../layouts/Base.astro';
+import data from '../../data/quoc-tich.json';
+const { topics, qs } = data as { topics: Record<string, string>; qs: { t: string }[] };
+const tkeys = Object.keys(topics);
+const faq = [
+  ['Thi quốc tịch Síp gồm những bài nào?', 'Hai chứng chỉ riêng: tiếng Hy Lạp (B1 cho diện nhập tịch thông thường, A2 cho một số diện tay nghề cao) và bài kiến thức về đời sống chính trị, xã hội Síp. Trang này giúp ôn bài thứ hai.'],
+  ['Bài thi kiến thức Síp đậu bao nhiêu điểm?', 'Đậu từ 60% cho hồ sơ nhập tịch và từ 50% cho hồ sơ thường trú dài hạn. Cùng một bài thi, chỉ khác mức điểm.'],
+  ['Đề thi bằng tiếng gì?', 'Tiếng Hy Lạp. Vì vậy ngoài kiến thức, các bạn cần đọc hiểu được thuật ngữ cơ bản như Πρόεδρος, Βουλή, Σύνταγμα.'],
+  ['Câu hỏi ở trang này có giống đề thật không?', 'Không. Mình soạn theo các chủ đề hay gặp để các bạn làm quen. Trước kỳ thi, các bạn đọc đề cương chính thức (Εξεταστέα Ύλη) của Υπηρεσία Εξετάσεων.'],
+];
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'LearningResource', name: 'Thi thử kiến thức Síp cho hồ sơ quốc tịch', inLanguage: 'vi', learningResourceType: 'Quiz', isAccessibleForFree: true, url: 'https://www.cuocsongdaosip.com/hoc/quoc-tich/' },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+];
+const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống'], ['Βουλή των Αντιπροσώπων', 'Hạ viện'], ['Σύνταγμα', 'Hiến pháp'], ['Υπουργικό Συμβούλιο', 'Hội đồng Bộ trưởng'], ['Ανεξαρτησία', 'Độc lập'], ['Πραξικόπημα', 'Đảo chính'], ['Τουρκική εισβολή', 'Thổ Nhĩ Kỳ đổ quân'], ['Νεκρή ζώνη', 'Vùng đệm'], ['Εγγυήτριες δυνάμεις', 'Các nước bảo lãnh'], ['Ευρωπαϊκή Ένωση', 'Liên minh châu Âu'], ['Εκλογές', 'Bầu cử'], ['Επαρχία', 'Quận']];
+---
+<Base title="Thi thử quốc tịch Síp: bài thi kiến thức chính trị, xã hội" description="Tổng quan bài thi kiến thức Síp cho hồ sơ nhập tịch và thường trú dài hạn: ôn ở đâu, cách thi, cách chấm, điểm đậu, khi nào có kết quả. Kèm bài thi thử 25 câu, 45 phút." active="hoc" crumbs={[['Học & thi', '/hoc/'], ['Thi thử quốc tịch', '/hoc/quoc-tich/']]} jsonld={ld}>
+  <div class="wrap">
+    <p class="crumb"><a href="/">Trang chủ</a> / <a href="/hoc/">Học &amp; thi</a> / Thi thử quốc tịch</p>
+    <h1>Thi thử quốc tịch Síp</h1>
+    <p class="muted lead">Bài thi "kiến thức cơ bản về đời sống chính trị, xã hội Síp" mà người xin nhập tịch và thường trú dài hạn phải đậu. Đọc phần dặn dò trước, rồi làm bài thi thử {qs.length > 25 ? 25 : qs.length} câu trong 45 phút như thi thật.</p>
+
+    <div class="modes" role="tablist" aria-label="Chế độ">
+      <button type="button" role="tab" data-m="learn" aria-selected="true">Tổng quan &amp; dặn dò</button>
+      <button type="button" role="tab" data-m="quiz" aria-selected="false">Thi thử</button>
+    </div>
+
+    <section id="learn" class="guide">
+      <dl class="facts">
+        <div><dt>Thời gian</dt><dd>45 phút</dd></div>
+        <div><dt>Hình thức</dt><dd>Trắc nghiệm, 25 câu (đề 2026)</dd></div>
+        <div><dt>Ngôn ngữ</dt><dd>Tiếng Hy Lạp</dd></div>
+        <div><dt>Điểm đậu</dt><dd>60% nhập tịch<br />50% thường trú dài hạn</dd></div>
+      </dl>
+
+      <h2>Bài thi này là gì</h2>
+      <p>Tên chính thức khá dài: Εξετάσεις Πιστοποίησης της Επαρκούς Γνώσης Βασικών Στοιχείων της Σύγχρονης Πολιτικής και Κοινωνικής Πραγματικότητας της Κύπρου. Đơn vị tổ chức là Υπηρεσία Εξετάσεων (Phòng Khảo thí) thuộc Bộ Giáo dục, Thể thao và Thanh niên Síp.</p>
+      <p>Cùng một bài thi dùng cho hai loại hồ sơ: xin quốc tịch theo diện nhập tịch, và xin thường trú dài hạn (long-term resident) sau 5 năm cư trú. Bài thi tiếng Hy Lạp (B1 hoặc A2 tuỳ diện) là một kỳ thi riêng, đăng ký và đóng phí riêng.</p>
+
+      <h2>Ôn ở đâu</h2>
+      <ul>
+        <li><b>Đề cương chính thức</b> (Εξεταστέα Ύλη) do Υπηρεσία Εξετάσεων công bố cùng thông báo mỗi kỳ. Đề cương có các nhóm như tin thời sự lớn liên quan tới Síp và các sự kiện lịch sử từ năm 1960. Xem trên <a href="https://www.moec.gov.cy/ypexams/en/examinations.html" rel="noopener">trang của Υπηρεσία Εξετάσεων</a>.</li>
+        <li><b>Cyprus Fact File</b> của Thứ trưởng Bộ Du lịch Síp. Bộ Giáo dục từng khuyên thí sinh dùng tài liệu này để biết dạng thông tin cần nắm.</li>
+        <li><b>Tin tức trong nước</b>, vì đề có phần thời sự. Mỗi ngày đọc vài tin trên báo Síp là đủ quen tên người, tên cơ quan.</li>
+        <li><b>Từ vựng tiếng Hy Lạp</b> trong đề: xem bảng ở cuối trang, và học tiếp ở <a href="/hoc/tieng-hy-lap/">Khu học tiếng Hy Lạp</a>.</li>
+      </ul>
+
+      <h2>Lịch thi và đăng ký</h2>
+      <ul>
+        <li>Theo thông báo ngày 22/9/2026, vì đông người đăng ký, Bộ quyết định tổ chức <b>3 kỳ mỗi năm</b>. Năm 2026 có các kỳ 7/3, 4/7 và thứ Bảy 21/11. Lịch năm 2027 đã được công bố ngày 22/9/2026 trên trang thông báo của Bộ.</li>
+        <li>Theo các trang hướng dẫn cho người nước ngoài, phí thi là €20 và đăng ký online qua JCCsmart. Thời hạn nộp đơn chỉ mở vài tuần trước mỗi kỳ, nên các bạn theo dõi thông báo để không lỡ.</li>
+        <li>Giấy tờ cần mang theo ngày thi và giờ thi cụ thể ghi trong thông báo của từng kỳ. Giờ thi được xếp theo số lượng thí sinh.</li>
+      </ul>
+
+      <h2>Cách thi, cách chấm</h2>
+      <ul>
+        <li>Câu hỏi dạng trắc nghiệm. Theo Cyprus Mail, đề năm 2026 có 25 câu, đậu nhập tịch là đúng từ 15 câu (60%). Số câu và dạng câu có thể thay đổi giữa các kỳ.</li>
+        <li>Có những câu dễ nhầm, kiểu Síp có quốc hội nhưng là cộng hoà tổng thống. Đọc kỹ từng đáp án, nhất là các từ phủ định như δεν, όχι.</li>
+        <li>Kỳ 7/3/2026 có 2.177 trên 2.916 thí sinh đạt từ 60% trở lên, tức khoảng 3/4 số người thi.</li>
+      </ul>
+
+      <h2>Khi nào có kết quả</h2>
+      <p>Kết quả thường có sau khoảng 2 tháng. Kỳ 7/3/2026 công bố ngày 22/5/2026, kỳ 4/7/2026 công bố ngày 4/9/2026. Danh sách đậu ghi theo số báo danh, sau đó thí sinh nhận giấy chứng nhận theo lịch Bộ thông báo. Giấy chứng nhận này nộp kèm hồ sơ quốc tịch hoặc thường trú dài hạn.</p>
+
+      <h2>Từ tiếng Hy Lạp hay gặp trong đề</h2>
+      <ul class="gr">{GR.map(([g, v]) => <li><span lang="el">{g}</span><span>{v}</span></li>)}</ul>
+
+      <p><button class="btn" type="button" id="go-quiz">Làm bài thi thử</button></p>
+    </section>
+
+    <section id="quiz" hidden aria-live="polite">
+      <div id="setup" class="setup">
+        <h2>Làm bài thi thử</h2>
+        <p class="muted">Câu hỏi bằng tiếng Việt để các bạn nắm kiến thức trước. Đề thật bằng tiếng Hy Lạp.</p>
+        <label>Kiểu làm
+          <select id="q-mode"><option value="exam">Thi thử: 25 câu, 45 phút, chấm cuối bài</option><option value="practice">Luyện tập: biết đúng sai và giải thích ngay</option></select>
+        </label>
+        <label>Chủ đề
+          <select id="q-cat"><option value="">Tất cả chủ đề</option>{tkeys.map((k) => <option value={k}>{topics[k]} ({qs.filter((q) => q.t === k).length})</option>)}</select>
+        </label>
+        <p class="best" id="best"></p>
+        <button class="btn" type="button" id="start">Bắt đầu</button>
+      </div>
+      <div id="play" hidden>
+        <div class="bar"><span id="pos"></span><span id="score"></span></div>
+        <div class="progress"><span id="prog"></span></div>
+        <p class="topic" id="q-t"></p>
+        <p class="ask" id="q-text"></p>
+        <div id="opts" class="opts"></div>
+        <p id="fb" class="fb"></p>
+        <p id="why" class="why"></p>
+        <button class="btn" type="button" id="next" hidden>Câu tiếp</button>
+      </div>
+      <div id="done" hidden>
+        <h2 id="res-h"></h2>
+        <p id="res-p" class="verdict"></p>
+        <p class="acts"><button class="btn" type="button" id="again">Làm bài mới</button><button class="btn ghost" type="button" id="wrongonly" hidden>Làm lại các câu sai</button></p>
+        <ol id="review" class="review"></ol>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>Hỏi nhanh</h2>
+      {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+    </section>
+    <p class="note">Câu hỏi thi thử do Cuộc Sống Đảo Síp soạn để ôn tập, không phải đề thi thật. Lịch thi, phí và điểm đậu có thể thay đổi theo từng kỳ, các bạn đối chiếu thông báo mới nhất của Υπηρεσία Εξετάσεων trước khi đăng ký. Thấy câu nào chưa chính xác, các bạn nhắn mình sửa nhé.</p>
+  </div>
+
+  <script type="application/json" id="qt-data" set:html={JSON.stringify(data)} />
+<style is:global>
+    #learn[hidden], #quiz[hidden], #quiz [hidden] { display: none !important; }
+    .lead { font-size: 17px; max-width: 62ch; }
+    .modes { display: flex; gap: 4px; background: var(--stone); padding: 4px; border-radius: 999px; max-width: 420px; margin: 18px 0 10px; }
+    .modes button { flex: 1; border: 0; background: none; border-radius: 999px; padding: 10px; font: 500 15px var(--text); color: var(--muted); cursor: pointer; }
+    .modes button[aria-selected="true"] { background: #fff; color: var(--sea); box-shadow: 0 1px 4px rgba(18,80,122,.15); }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding: 6px 0 4px; }
+    .chips button { flex: none; font: 400 14px var(--text); border: 1px solid var(--line); background: #fff; color: var(--ink); padding: 7px 13px; border-radius: 999px; cursor: pointer; }
+    .chips button span { color: var(--muted); font-size: 12.5px; }
+    .chips button[aria-pressed="true"] { background: var(--sea); border-color: var(--sea); color: #fff; }
+    .chips button[aria-pressed="true"] span { color: #CFE2EC; }
+    .group h2 { font-size: 22px; margin: 26px 0 10px; }
+    .grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+    .sign { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 12px 10px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+    .sign img { width: 84px; height: 84px; object-fit: contain; margin-bottom: 4px; }
+    .sign .vi { font-size: 14px; font-weight: 500; line-height: 1.35; }
+    .sign .en { font-size: 12px; color: var(--muted); line-height: 1.3; }
+    .setup { max-width: 460px; display: grid; gap: 14px; margin-top: 10px; }
+    .setup h2 { margin: 0; }
+    .setup label { display: grid; gap: 6px; font-weight: 500; font-size: 15px; }
+    .setup select { padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; font: 400 16px var(--text); background: #fff; color: var(--ink); }
+    .best { margin: 0; font-size: 14px; color: var(--olive); }
+    #play, #done { max-width: 560px; }
+    .bar { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); margin-top: 14px; }
+    .progress { height: 6px; background: var(--stone); border-radius: 999px; overflow: hidden; margin: 6px 0 16px; }
+    .progress span { display: block; height: 100%; width: 0; background: var(--sea); transition: width .2s; }
+    .q { margin: 0; display: grid; place-items: center; background: var(--stone); border-radius: var(--r-lg); padding: 18px; }
+    .q img { width: 180px; height: 180px; object-fit: contain; }
+    .ask { font-weight: 500; margin: 16px 0 10px; }
+    .opts { display: grid; gap: 8px; }
+    .opts button { text-align: left; border: 1.5px solid var(--line); background: #fff; border-radius: 12px; padding: 12px 14px; font: 400 15.5px/1.4 var(--text); color: var(--ink); cursor: pointer; }
+    .opts button small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+    .opts button:hover:not(:disabled) { border-color: var(--sea); }
+    .opts button.ok { border-color: #2E7D5B; background: #EAF5EF; }
+    .opts button.bad { border-color: #B3261E; background: #FBECEB; }
+    .opts button.pick { border-color: var(--sea); background: #EAF1F6; }
+    .opts button:disabled { cursor: default; }
+    .fb { min-height: 1.4em; font-weight: 500; margin: 12px 0; }
+    .fb.ok { color: #2E7D5B; } .fb.bad { color: #B3261E; }
+    .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+    .review { list-style: none; padding: 0; margin: 18px 0 0; }
+    .review li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+    .review img { width: 56px; height: 56px; object-fit: contain; }
+    .review .was { color: #B3261E; display: block; font-size: 13px; }
+    .faq { max-width: 760px; margin-top: 40px; }
+    .faq details { border-bottom: 1px solid var(--line); padding: 4px 0; }
+    .faq summary { cursor: pointer; padding: 12px 0; font-weight: 500; }
+    .faq details p { margin: 0 0 14px; }
+      .guide { max-width: 760px; }
+    .guide h2 { font-size: 23px; margin: 32px 0 10px; }
+    .guide ul { padding-left: 20px; } .guide li { margin: 6px 0; }
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 18px 0 6px; }
+    .facts div { background: var(--stone); border-radius: var(--r-sm); padding: 12px 14px; }
+    .facts dt { font-size: 13px; color: var(--muted); }
+    .facts dd { margin: 2px 0 0; font-weight: 600; font-size: 16px; line-height: 1.35; }
+    .gr { list-style: none; padding: 0 !important; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 0 20px; }
+    .gr li { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--line); padding: 8px 0; margin: 0 !important; font-size: 15px; }
+    .gr li span:first-child { font-weight: 500; color: var(--sea); }
+    .gr li span:last-child { color: var(--muted); text-align: right; }
+    .topic { font-size: 13px; color: var(--copper); margin: 0; font-weight: 500; }
+    #q-text { font-size: 18px; line-height: 1.45; margin-top: 6px; }
+    .why { color: var(--muted); font-size: 15px; margin: 0 0 12px; }
+    .verdict { font-size: 16px; }
+    .verdict b.pass { color: #2E7D5B; } .verdict b.fail { color: #B3261E; }
+    .review li { display: block !important; }
+    .review .why { display: block; margin-top: 4px; font-size: 13.5px; }
+    .review .ok-a { display: block; color: #2E7D5B; font-size: 13.5px; }
+    .timer.low { color: #B3261E; font-weight: 600; }
+  </style>
+  <script>
+    type Q = { id: number; t: string; q: string; a: string[]; c: number; why: string };
+    const DATA = JSON.parse(document.getElementById('qt-data')!.textContent!) as { topics: Record<string, string>; qs: Q[] };
+    const ALL = DATA.qs;
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch {} } };
+    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.modes button');
+    function mode(m: string) {
+      tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.m === m)));
+      $('learn').hidden = m !== 'learn'; $('quiz').hidden = m !== 'quiz';
+      history.replaceState(null, '', m === 'quiz' ? '#thi-thu' : location.pathname);
+    }
+    tabs.forEach((t) => (t.onclick = () => mode(t.dataset.m!)));
+    $('go-quiz').onclick = () => { mode('quiz'); scrollTo({ top: 0 }); };
+    if (location.hash === '#thi-thu') mode('quiz');
+
+    const shuffle = <T,>(a: T[]) => { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
+    let qs: Q[] = [], i = 0, right = 0, picks: number[] = [], orders: number[][] = [], exam = false, end = 0, tick: number | undefined;
+    function best() { const b = store.get('csds.qt.best'); $('best').textContent = b ? `Điểm cao nhất của bạn: ${b}` : ''; }
+    best();
+    function clock() {
+      const left = Math.max(0, end - Date.now()); const m = Math.floor(left / 60000), s = Math.floor((left % 60000) / 1000);
+      const el = $('score'); el.textContent = `Còn ${m}:${String(s).padStart(2, '0')}`; el.className = 'timer' + (left < 5 * 60000 ? ' low' : '');
+      if (!left) finish(true);
+    }
+    function start(pool?: Q[]) {
+      exam = ($('q-mode') as HTMLSelectElement).value === 'exam';
+      const cat = ($('q-cat') as HTMLSelectElement).value;
+      const src = ALL.filter((q) => !cat || q.t === cat);
+      qs = pool ?? (exam ? shuffle(src).slice(0, 25) : shuffle(src));
+      i = 0; right = 0; picks = []; orders = qs.map(() => shuffle([0, 1, 2, 3]));
+      $('setup').hidden = true; $('done').hidden = true; $('play').hidden = false;
+      clearInterval(tick);
+      if (exam) { end = Date.now() + 45 * 60000; tick = window.setInterval(clock, 1000); }
+      show();
+    }
+    function show() {
+      const q = qs[i];
+      $('pos').textContent = `Câu ${i + 1}/${qs.length}`;
+      if (exam) clock(); else { $('score').textContent = `Đúng ${right}`; $('score').className = ''; }
+      $('prog').style.width = `${(i / qs.length) * 100}%`;
+      $('q-t').textContent = DATA.topics[q.t];
+      $('q-text').textContent = q.q;
+      $('fb').textContent = ''; $('fb').className = 'fb'; $('why').textContent = ''; $('next').hidden = true;
+      const box = $('opts'); box.innerHTML = '';
+      for (const k of orders[i]) {
+        const b = document.createElement('button'); b.type = 'button'; b.textContent = q.a[k]; b.dataset.k = String(k);
+        b.onclick = () => answer(k, b); box.appendChild(b);
+      }
+    }
+    function answer(k: number, b: HTMLButtonElement) {
+      const q = qs[i]; const ok = k === q.c;
+      if (ok) right++; picks[i] = k;
+      const btns = [...$('opts').querySelectorAll<HTMLButtonElement>('button')];
+      btns.forEach((x) => (x.disabled = true));
+      if (exam) { b.classList.add('pick'); setTimeout(nextQ, 250); return; }
+      btns.forEach((x) => { if (+x.dataset.k! === q.c) x.classList.add('ok'); });
+      if (!ok) b.classList.add('bad');
+      $('fb').textContent = ok ? 'Đúng rồi.' : `Chưa đúng. Đáp án: ${q.a[q.c]}.`;
+      $('fb').className = 'fb ' + (ok ? 'ok' : 'bad');
+      $('why').textContent = q.why;
+      $('score').textContent = `Đúng ${right}`;
+      $('next').hidden = false; $('next').textContent = i + 1 < qs.length ? 'Câu tiếp' : 'Xem kết quả';
+      $('next').focus({ preventScroll: true });
+    }
+    function nextQ() { i++; if (i < qs.length) show(); else finish(false); }
+    function finish(timeout: boolean) {
+      clearInterval(tick);
+      $('play').hidden = true; $('done').hidden = false;
+      const n = qs.length; const pct = Math.round((right / n) * 100);
+      $('res-h').textContent = `${timeout ? 'Hết giờ. ' : ''}Bạn đúng ${right}/${n} câu (${pct}%)`;
+      const nat = pct >= 60, ltr = pct >= 50;
+      $('res-p').innerHTML = `Hồ sơ nhập tịch (cần 60%): <b class="${nat ? 'pass' : 'fail'}">${nat ? 'Đậu' : 'Chưa đậu'}</b><br>Hồ sơ thường trú dài hạn (cần 50%): <b class="${ltr ? 'pass' : 'fail'}">${ltr ? 'Đậu' : 'Chưa đậu'}</b>`;
+      if (exam && n >= 20) { const prev = +(store.get('csds.qt.pct') || 0); if (pct > prev) { store.set('csds.qt.pct', String(pct)); store.set('csds.qt.best', `${right}/${n} câu (${pct}%)`); } }
+      best();
+      const wrong = qs.map((q, k) => [q, picks[k]] as const).filter(([q, p]) => p !== q.c);
+      $('review').innerHTML = wrong.map(([q, p]) => `<li><b>${esc(q.q)}</b><span class="was">${p === undefined ? 'Chưa trả lời' : 'Bạn chọn: ' + esc(q.a[p])}</span><span class="ok-a">Đáp án: ${esc(q.a[q.c])}</span><span class="why">${esc(q.why)}</span></li>`).join('');
+      const wb = $<HTMLButtonElement>('wrongonly'); wb.hidden = !wrong.length;
+      wb.onclick = () => { ($('q-mode') as HTMLSelectElement).value = 'practice'; start(shuffle(wrong.map(([q]) => q))); };
+    }
+    $('start').onclick = () => start();
+    $('next').onclick = nextQ;
+    $('again').onclick = () => { $('done').hidden = true; $('setup').hidden = false; };
+  </script>
+</Base>
