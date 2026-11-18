@@ -5,6 +5,7 @@ const { p, big = false } = Astro.props as { p: Post; big?: boolean };
 ---
 <a class:list={['tile', { big }]} href={postHref(p)}>
   <span class="img">
+    {p.cover_url && <span class="bg" aria-hidden="true" style={`background-image:url('${p.cover_url.replace(/maxresdefault/, 'hqdefault')}')`}></span>}
     {p.cover_url && <img src={p.cover_url} alt="" loading={big ? 'eager' : 'lazy'} width="800" height="450" onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault')" />}
     {p.youtube_id && <span class="play" aria-label="Video"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></span>}
   </span>
@@ -15,7 +16,8 @@ const { p, big = false } = Astro.props as { p: Post; big?: boolean };
 <style>
   .tile { display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--ink); }
   .img { position: relative; display: block; border-radius: var(--r-lg); overflow: hidden; background: var(--stone); aspect-ratio: 16/9; }
-  .img img { width: 100%; height: 100%; object-fit: cover; }
+  .img img { position: relative; width: 100%; height: 100%; object-fit: contain; }
+  .bg { position: absolute; inset: -20px; background: center/cover no-repeat; filter: blur(18px) brightness(.85); }
   .play { position: absolute; left: 12px; bottom: 12px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.95); display: grid; place-items: center; }
   .play svg { width: 18px; fill: #C4302B; margin-left: 2px; }
   .meta { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px; align-items: center; }
