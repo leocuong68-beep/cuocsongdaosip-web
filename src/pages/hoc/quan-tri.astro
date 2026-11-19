@@ -30,12 +30,12 @@ import Base from '../../layouts/Base.astro';
       const { data: acc, error } = await sb.from('hoc_access').select('user_id, status, note, requested_at, decided_at').order('requested_at', { ascending: false });
       if (error) { box.innerHTML = '<p class="muted">Chưa tải được danh sách.</p>'; return; }
       const ids = (acc ?? []).map((a) => a.user_id);
-      const { data: profs } = ids.length ? await sb.from('profiles').select('id, full_name, email, phone').in('id', ids) : { data: [] as any[] };
+      const { data: profs } = ids.length ? await sb.from('profiles').select('id, full_name, email, phone, location').in('id', ids) : { data: [] as any[] };
       const by = new Map((profs ?? []).map((p: any) => [p.id, p]));
       const row = (a: any) => {
         const p: any = by.get(a.user_id) ?? {};
         const btn = (st: string, label: string, cls = '') => (a.status === st ? '' : `<button class="${cls}" data-u="${a.user_id}" data-s="${st}">${label}</button>`);
-        return `<tr><td><b>${esc(p.full_name || '(chưa có tên)')}</b><br>${esc(p.email || '')}<br>${esc(p.phone || '')}</td><td>${esc(a.note || '')}</td><td>${fmt(a.requested_at)}</td><td><span class="st-${a.status}">${LABEL[a.status]}</span>${a.decided_at ? '<br><small>' + fmt(a.decided_at) + '</small>' : ''}</td><td class="act">${btn('approved', 'Duyệt', 'ok')}${btn('rejected', a.status === 'approved' ? 'Thu hồi' : 'Từ chối')}</td></tr>`;
+        return `<tr><td><b>${esc(p.full_name || '(chưa có tên)')}</b><br>${esc(p.email || '')}<br>${esc(p.phone || '')}${p.location ? '<br>📍 ' + esc(p.location) : ''}</td><td>${esc(a.note || '')}</td><td>${fmt(a.requested_at)}</td><td><span class="st-${a.status}">${LABEL[a.status]}</span>${a.decided_at ? '<br><small>' + fmt(a.decided_at) + '</small>' : ''}</td><td class="act">${btn('approved', 'Duyệt', 'ok')}${btn('rejected', a.status === 'approved' ? 'Thu hồi' : 'Từ chối')}</td></tr>`;
       };
       const table = (list: any[]) => (list.length ? `<table><tr><th>Thành viên</th><th>Ghi chú</th><th>Gửi lúc</th><th>Trạng thái</th><th></th></tr>${list.map(row).join('')}</table>` : '<p class="muted">Không có.</p>');
       const pend = (acc ?? []).filter((a) => a.status === 'pending'), rest = (acc ?? []).filter((a) => a.status !== 'pending');

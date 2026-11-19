@@ -1,13 +1,12 @@
 ---
-// Học biển báo giao thông Síp + trắc nghiệm (miễn phí, không cần đăng nhập).
+// Học biển báo giao thông Síp + trắc nghiệm (cần tài khoản Khu Học đã duyệt; dữ liệu nằm trong hoc_lessons, id bb-signs).
 // Dữ liệu: dự án cysigns (MIT, github.com/mrfeod/cysigns), hình từ Wikimedia Commons theo bài "Road signs in Cyprus". Tên tiếng Việt: Cuộc Sống Đảo Síp dịch.
 import Base from '../../layouts/Base.astro';
-import signs from '../../data/bien-bao.json';
 const CAT: Record<string, string> = {
   'canh-bao': 'Biển cảnh báo', cam: 'Biển cấm, hạn chế', 'uu-tien': 'Ưu tiên, dừng, nhường', 'do-xe': 'Dừng, đỗ xe',
   'hieu-lenh': 'Biển hiệu lệnh', 'chi-dan': 'Biển chỉ dẫn', 'bien-phu': 'Biển phụ', 'xe-dap': 'Xe đạp, camera',
 };
-const cats = Object.keys(CAT).filter((c) => signs.some((s) => s.cat === c));
+const cats = Object.keys(CAT);
 const faq = [
   ['Ở Síp xe chạy bên nào?', 'Bên trái, tay lái bên phải, giống Anh. Nhiều biển báo của Síp theo mẫu của Anh, một số theo mẫu Hy Lạp và châu Âu.'],
   ['Biển báo ở Síp viết bằng tiếng gì?', 'Đa số biển chỉ dẫn ghi song ngữ Hy Lạp và Anh. Biển cảnh báo, biển cấm chủ yếu là hình vẽ nên học theo hình là đọc được.'],
@@ -18,11 +17,14 @@ const ld = [
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
 ];
 ---
-<Base title="Biển báo giao thông Síp: học và trắc nghiệm bằng lái bằng tiếng Việt" description={`${signs.length} biển báo giao thông ở Síp có tên tiếng Việt và tiếng Anh, học theo nhóm và làm trắc nghiệm ngay trên điện thoại. Miễn phí, không cần đăng ký.`} image="https://www.cuocsongdaosip.com/og/bang-lai.jpg" active="hoc" crumbs={[['Học & thi', '/hoc/'], ['Bằng lái', '/hoc/bang-lai/']]} jsonld={ld}>
+<Base title="Biển báo giao thông Síp: học và trắc nghiệm bằng lái bằng tiếng Việt" description="170 biển báo giao thông ở Síp có tên tiếng Việt và tiếng Anh, học theo nhóm và làm trắc nghiệm ngay trên điện thoại. Miễn phí cho thành viên Khu Học." image="https://www.cuocsongdaosip.com/og/bang-lai.jpg" active="hoc" crumbs={[['Học & thi', '/hoc/'], ['Bằng lái', '/hoc/bang-lai/']]} jsonld={ld}>
   <div class="wrap">
     <p class="crumb"><a href="/">Trang chủ</a> / <a href="/hoc/">Học &amp; thi</a> / Bằng lái</p>
     <h1>Biển báo giao thông Síp</h1>
-    <p class="muted lead">{signs.length} biển báo hay gặp ở Síp, có tên tiếng Việt và tiếng Anh. Học theo nhóm trước, rồi làm trắc nghiệm. Miễn phí, không cần đăng ký.</p>
+    <p class="muted lead">170 biển báo hay gặp ở Síp, có tên tiếng Việt và tiếng Anh. Học theo nhóm trước, rồi làm trắc nghiệm. Miễn phí cho thành viên Khu Học, đăng ký và chờ duyệt là học được.</p>
+
+    <div id="gate" class="gate"><p class="muted">Đang kiểm tra tài khoản…</p></div>
+    <div id="app" hidden>
 
     <div class="modes" role="tablist" aria-label="Chế độ">
       <button type="button" role="tab" data-m="learn" aria-selected="true">Học biển báo</button>
@@ -30,20 +32,8 @@ const ld = [
     </div>
 
     <section id="learn">
-      <div class="chips" role="group" aria-label="Nhóm biển">
-        <button type="button" data-c="" aria-pressed="true">Tất cả <span>{signs.length}</span></button>
-        {cats.map((c) => <button type="button" data-c={c} aria-pressed="false">{CAT[c]} <span>{signs.filter((s) => s.cat === c).length}</span></button>)}
-      </div>
-      {cats.map((c) => (
-        <div class="group" data-c={c}>
-          <h2>{CAT[c]}</h2>
-          <ul class="grid">
-            {signs.filter((s) => s.cat === c).map((s) => (
-              <li class="sign"><img src={s.img} alt={s.vi} loading="lazy" width="96" height="96" /><span class="vi">{s.vi}</span><span class="en">{s.en}</span></li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <div class="chips" id="chips" role="group" aria-label="Nhóm biển"></div>
+      <div id="groups"></div>
     </section>
 
     <section id="quiz" hidden aria-live="polite">
@@ -54,7 +44,7 @@ const ld = [
           <select id="q-mode"><option value="practice">Luyện tập: biết đúng sai ngay</option><option value="exam">Thi thử: xem kết quả cuối bài</option></select>
         </label>
         <label>Nhóm biển
-          <select id="q-cat"><option value="">Tất cả nhóm</option>{cats.map((c) => <option value={c}>{CAT[c]}</option>)}</select>
+          <select id="q-cat"><option value="">Tất cả nhóm</option></select>
         </label>
         <label>Số câu
           <select id="q-n"><option>10</option><option selected>20</option><option>40</option></select>
@@ -79,6 +69,8 @@ const ld = [
       </div>
     </section>
 
+    </div>
+
     <section class="faq">
       <h2>Hỏi nhanh</h2>
       {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
@@ -86,11 +78,16 @@ const ld = [
     <p class="note">Tài liệu tham khảo để làm quen biển báo, không thay tài liệu thi chính thức. Hình biển báo lấy từ Wikimedia Commons (bài "Road signs in Cyprus"), dữ liệu gốc từ dự án mã nguồn mở <a href="https://github.com/mrfeod/cysigns" rel="noopener">cysigns</a>; tên tiếng Việt do Cuộc Sống Đảo Síp dịch. Thấy biển nào dịch chưa chuẩn, các bạn nhắn mình sửa nhé.</p>
   </div>
 
-  <script type="application/json" id="signs-data" set:html={JSON.stringify(signs)} />
+  <script type="application/json" id="cat-data" set:html={JSON.stringify(CAT)} />
   <style is:global>
     #learn[hidden], #quiz[hidden], #quiz [hidden] { display: none !important; }
     #quiz [hidden], #learn[hidden], #quiz[hidden] { display: none !important; }
     .lead { font-size: 17px; max-width: 62ch; }
+    .gate { margin: 20px 0; background: var(--stone); border-radius: var(--r-lg); padding: 18px 20px; max-width: 640px; }
+    .gate h3 { margin: 0 0 6px; } .gate p:last-child { margin-bottom: 0; }
+    .gate textarea { width: 100%; min-height: 76px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font: inherit; margin: 6px 0 12px; background: #fff; }
+    .gate .err { color: #B3261E; font-size: 14px; }
+    #app[hidden], #gate[hidden] { display: none !important; }
     .modes { display: flex; gap: 4px; background: var(--stone); padding: 4px; border-radius: 999px; max-width: 420px; margin: 18px 0 10px; }
     .modes button { flex: 1; border: 0; background: none; border-radius: 999px; padding: 10px; font: 500 15px var(--text); color: var(--muted); cursor: pointer; }
     .modes button[aria-selected="true"] { background: #fff; color: var(--sea); box-shadow: 0 1px 4px rgba(18,80,122,.15); }
@@ -139,7 +136,16 @@ const ld = [
   </style>
   <script>
     type S = { id: number; img: string; en: string; vi: string; cat: string };
-    const SIGNS: S[] = JSON.parse(document.getElementById('signs-data')!.textContent!);
+    import { renderGate, loadHoc } from '../../lib/hoc';
+    const CAT: Record<string, string> = JSON.parse(document.getElementById('cat-data')!.textContent!);
+    let SIGNS: S[] = [];
+    const escH = (x: string) => x.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+    function build() {
+      const cats = Object.keys(CAT).filter((c) => SIGNS.some((x) => x.cat === c));
+      $('chips').innerHTML = `<button type="button" data-c="" aria-pressed="true">Tất cả <span>${SIGNS.length}</span></button>` + cats.map((c) => `<button type="button" data-c="${c}" aria-pressed="false">${CAT[c]} <span>${SIGNS.filter((x) => x.cat === c).length}</span></button>`).join('');
+      $('groups').innerHTML = cats.map((c) => `<div class="group" data-c="${c}"><h2>${CAT[c]}</h2><ul class="grid">` + SIGNS.filter((x) => x.cat === c).map((x) => `<li class="sign"><img src="${x.img}" alt="${escH(x.vi)}" loading="lazy" width="96" height="96"><span class="vi">${escH(x.vi)}</span><span class="en">${escH(x.en)}</span></li>`).join('') + `</ul></div>`).join('');
+      ($('q-cat') as HTMLSelectElement).innerHTML = '<option value="">Tất cả nhóm</option>' + cats.map((c) => `<option value="${c}">${CAT[c]}</option>`).join('');
+    }
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
     const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch {} } };
 
@@ -154,11 +160,13 @@ const ld = [
     if (location.hash === '#trac-nghiem') mode('quiz');
 
     // Lọc nhóm
+    function bindChips() {
     const chips = document.querySelectorAll<HTMLButtonElement>('.chips button');
     chips.forEach((b) => (b.onclick = () => {
       chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
       document.querySelectorAll<HTMLElement>('.group').forEach((g) => (g.hidden = !!b.dataset.c && g.dataset.c !== b.dataset.c));
     }));
+    }
 
     // Trắc nghiệm
     const shuffle = <T,>(a: T[]) => { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
@@ -229,5 +237,12 @@ const ld = [
     $('start').onclick = () => start();
     $('next').onclick = nextQ;
     $('again').onclick = () => { $('done').hidden = true; $('setup').hidden = false; };
+    (async () => {
+      const ok = await renderGate($('gate'), '/hoc/bang-lai/', 'học biển báo và làm trắc nghiệm');
+      if (!ok) return;
+      const d = await loadHoc<{ signs: S[] }>('bb-signs');
+      if (!d) { $('gate').hidden = false; $('gate').innerHTML = '<p>Chưa tải được dữ liệu, bạn thử lại sau ít phút nhé.</p>'; return; }
+      SIGNS = d.signs; build(); bindChips(); $('app').hidden = false;
+    })();
   </script>
 </Base>

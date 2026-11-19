@@ -19,12 +19,12 @@ const posts = await bySection('hoc-tap');
         <p>Đang mở bảng chữ cái và 4 tuần đầu trình độ A1, mỗi ngày 30 phút: nghe, nói, đọc, viết, kèm kiến thức về Síp. Bài mới thêm dần, mục tiêu lâu dài là trình độ thi chứng chỉ.</p>
       </a>
       <a class="course" href="/hoc/quoc-tich/">
-        <span class="tag">Mở cho mọi người, không cần đăng ký</span>
+        <span class="tag">Dành cho thành viên đã duyệt</span>
         <h2>Thi thử quốc tịch</h2>
         <p>Bài thi kiến thức chính trị, xã hội Síp: ôn ở đâu, cách thi, cách chấm, khi nào có kết quả, kèm đề thi thử 25 câu, 45 phút.</p>
       </a>
       <a class="course" href="/hoc/bang-lai/">
-        <span class="tag">Mở cho mọi người, không cần đăng ký</span>
+        <span class="tag">Dành cho thành viên đã duyệt</span>
         <h2>Biển báo và trắc nghiệm bằng lái</h2>
         <p>170 biển báo giao thông Síp có tên tiếng Việt, học theo nhóm rồi làm trắc nghiệm luyện tập hoặc thi thử.</p>
       </a>
@@ -57,7 +57,7 @@ const posts = await bySection('hoc-tap');
       const hi = s.name ? `Chào ${s.name.replace(/[<>&"]/g, '')}. ` : '';
       if (s.status === 'guest') {
         greek.href = loginHref('/hoc/');
-        st.innerHTML = `<h3>Đăng nhập để vào học</h3><p>Bạn đăng ký bằng email (miễn phí), rồi gửi yêu cầu vào Khu Học ngay tại trang này.</p><p><a class="btn" href="${loginHref('/hoc/')}">Đăng ký hoặc đăng nhập</a></p>`;
+        st.innerHTML = `<h3>Đăng nhập để vào học</h3><p>Bạn đăng ký miễn phí (họ tên, nơi ở, email, số điện thoại), rồi gửi yêu cầu vào Khu Học ngay tại trang này. Một lần duyệt là học được tiếng Hy Lạp, bằng lái và thi thử quốc tịch.</p><p><a class="btn" href="${loginHref('/hoc/')}">Đăng ký hoặc đăng nhập</a></p>`;
       } else if (s.status === 'none') {
         greek.href = '#st';
         st.innerHTML = `<h3>${hi}Gửi yêu cầu vào Khu Học</h3><p>Mình xem và duyệt từng tài khoản. Bạn có thể ghi vài dòng về mình (không bắt buộc).</p><textarea id="note" maxlength="500" placeholder="Ví dụ: nhà mình ở Limassol, muốn học để thi quốc tịch."></textarea><p class="err" id="err" role="alert"></p><button class="btn" id="req" type="button">Gửi yêu cầu</button>`;
@@ -74,7 +74,7 @@ const posts = await bySection('hoc-tap');
         greek.href = '#st';
         st.innerHTML = `<h3>Tài khoản chưa được mở Khu Học</h3><p>Bạn nhắn mình qua WhatsApp/Zalo +357 94 100 091 nhé.</p>`;
       } else {
-        st.innerHTML = `<h3>${hi}Tài khoản đã được duyệt</h3><p><a class="btn" href="/hoc/tieng-hy-lap/">Vào học tiếng Hy Lạp</a>${s.staff ? ' <a class="btn ghost" href="/hoc/quan-tri/">Duyệt tài khoản</a>' : ''}</p>`;
+        st.innerHTML = `<h3>${hi}Tài khoản đã được duyệt</h3><p><a class="btn" href="/hoc/tieng-hy-lap/">Tiếng Hy Lạp</a> <a class="btn ghost" href="/hoc/bang-lai/">Bằng lái</a> <a class="btn ghost" href="/hoc/quoc-tich/#thi-thu">Thi thử quốc tịch</a>${s.staff ? ' <a class="btn ghost" href="/hoc/quan-tri/">Duyệt tài khoản</a>' : ''}</p>`;
       }
     }
     render();

@@ -20,9 +20,10 @@ import Base from '../layouts/Base.astro';
       </div>
       <form id="f1" novalidate>
         <label class="reg">Họ và tên<input name="name" autocomplete="name" maxlength="80" required /></label>
+        <label class="reg">Nơi ở<input name="location" autocomplete="address-level2" maxlength="120" required placeholder="Ví dụ: Paphos, Limassol, TP.HCM" /></label>
         <label>Email<input name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required /></label>
-        <label class="reg">Số Zalo/WhatsApp <span class="opt">(không bắt buộc, để mình nhắn khi duyệt)</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="+84 … hoặc +357 …" /></label>
-        <label class="reg ck"><input type="checkbox" name="consent" required /> <span>Mình đồng ý để Leo Cường (EUWay - Di Trú Síp) lưu họ tên, email và số điện thoại (nếu có) để cấp tài khoản Khu Học. <a href="https://ditrusip.com/chinh-sach-quyen-rieng-tu/" target="_blank" rel="noopener">Chính sách quyền riêng tư</a></span></label>
+        <label class="reg">Số Zalo/WhatsApp<input name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required placeholder="+84 … hoặc +357 …" /></label>
+        <label class="reg ck"><input type="checkbox" name="consent" required /> <span>Mình đồng ý để Leo Cường (EUWay - Di Trú Síp) lưu họ tên, nơi ở, email và số điện thoại để cấp và duyệt tài khoản Khu Học. <a href="https://ditrusip.com/chinh-sach-quyen-rieng-tu/" target="_blank" rel="noopener">Chính sách quyền riêng tư</a></span></label>
         <p class="err" id="e1" role="alert"></p>
         <button class="btn" type="submit" id="b1">Gửi mã xác minh</button>
       </form>
@@ -61,7 +62,7 @@ import Base from '../layouts/Base.astro';
     const next = raw.startsWith('/') && !raw.startsWith('//') ? raw : '/hoc/';
     let mode: 'register' | 'login' = 'register';
     let email = '';
-    let profile = { name: '', phone: '' };
+    let profile = { name: '', phone: '', location: '' };
 
     async function showAccount() {
       const s = await sb.auth.getSession().then((r) => r.data.session);
@@ -90,7 +91,7 @@ import Base from '../layouts/Base.astro';
 
     async function sendCode() {
       const opts: any = { shouldCreateUser: mode === 'register' };
-      if (mode === 'register') opts.data = { full_name: profile.name, phone: profile.phone, register_consent: 'true', register_source: 'blog', register_topic: 'Đăng ký Khu Học trên blog cuocsongdaosip.com' };
+      if (mode === 'register') opts.data = { full_name: profile.name, phone: profile.phone, location: profile.location, register_consent: 'true', register_source: 'blog', register_topic: 'Đăng ký Khu Học trên blog cuocsongdaosip.com' };
       const { error } = await sb.auth.signInWithOtp({ email, options: opts });
       return error;
     }
@@ -104,12 +105,13 @@ import Base from '../layouts/Base.astro';
       e.preventDefault();
       const d = new FormData(e.target as HTMLFormElement);
       email = String(d.get('email') || '').trim().toLowerCase();
-      profile = { name: String(d.get('name') || '').trim(), phone: String(d.get('phone') || '').trim() };
+      profile = { name: String(d.get('name') || '').trim(), phone: String(d.get('phone') || '').trim(), location: String(d.get('location') || '').trim() };
       const e1 = $('e1');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { e1.textContent = 'Email chưa đúng.'; return; }
       if (mode === 'register') {
         if (profile.name.length < 2) { e1.textContent = 'Bạn nhập họ tên giúp mình nhé.'; return; }
-        if (profile.phone && profile.phone.replace(/\D/g, '').length < 8) { e1.textContent = 'Số Zalo/WhatsApp chưa đúng, hoặc bạn để trống cũng được.'; return; }
+        if (profile.location.length < 2) { e1.textContent = 'Bạn cho mình biết đang ở đâu nhé (thành phố là đủ).'; return; }
+        if (profile.phone.replace(/\D/g, '').length < 8) { e1.textContent = 'Bạn nhập số Zalo/WhatsApp giúp mình nhé, mình dùng để báo khi duyệt.'; return; }
         if (!d.get('consent')) { e1.textContent = 'Bạn đánh dấu đồng ý lưu thông tin để tiếp tục.'; return; }
       }
       const b = $<HTMLButtonElement>('b1'); b.disabled = true; e1.textContent = '';
@@ -129,8 +131,8 @@ import Base from '../layouts/Base.astro';
       if (error || !data.session) { b.disabled = false; e2.textContent = viErr(error?.message ?? 'otp'); return; }
       if (mode === 'register') {
         const uid = data.session.user.id;
-        const { data: p } = await sb.from('profiles').select('full_name, phone').eq('id', uid).maybeSingle();
-        if (p && (!p.full_name || (!p.phone && profile.phone))) await sb.from('profiles').update({ full_name: p.full_name || profile.name, phone: p.phone || profile.phone || null }).eq('id', uid);
+        const { data: p } = await sb.from('profiles').select('full_name, phone, location').eq('id', uid).maybeSingle();
+        if (p && (!p.full_name || !p.phone || !p.location)) await sb.from('profiles').update({ full_name: p.full_name || profile.name, phone: p.phone || profile.phone || null, location: p.location || profile.location || null }).eq('id', uid);
       }
       location.replace(next);
     };

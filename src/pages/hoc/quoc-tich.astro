@@ -1,9 +1,8 @@
 ---
-// Thi thử kiến thức chính trị, xã hội Síp (điều kiện nhập tịch và thường trú dài hạn). Miễn phí, không cần đăng nhập.
+// Thi thử kiến thức chính trị, xã hội Síp (điều kiện nhập tịch và thường trú dài hạn). Phần dặn dò công khai; phần thi thử cần tài khoản Khu Học đã duyệt, câu hỏi nằm trong hoc_lessons (qt-qs).
 // Thông tin kỳ thi lấy từ thông báo của Υπηρεσία Εξετάσεων (Bộ Giáo dục, Thể thao và Thanh niên Síp) và báo chí; câu hỏi do Cuộc Sống Đảo Síp soạn, không phải đề thật.
 import Base from '../../layouts/Base.astro';
-import data from '../../data/quoc-tich.json';
-const { topics, qs } = data as { topics: Record<string, string>; qs: { t: string }[] };
+const topics: Record<string, string> = { nn: 'Nhà nước, hiến pháp', ls: 'Lịch sử từ 1960', eu: 'Síp trong EU, thời sự', dl: 'Địa lý', vh: 'Văn hoá, lễ hội' };
 const tkeys = Object.keys(topics);
 const faq = [
   ['Thi quốc tịch Síp gồm những bài nào?', 'Hai chứng chỉ riêng: tiếng Hy Lạp (B1 cho diện nhập tịch thông thường, A2 cho một số diện tay nghề cao) và bài kiến thức về đời sống chính trị, xã hội Síp. Trang này giúp ôn bài thứ hai.'],
@@ -21,7 +20,7 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
   <div class="wrap">
     <p class="crumb"><a href="/">Trang chủ</a> / <a href="/hoc/">Học &amp; thi</a> / Thi thử quốc tịch</p>
     <h1>Thi thử quốc tịch Síp</h1>
-    <p class="muted lead">Bài thi "kiến thức cơ bản về đời sống chính trị, xã hội Síp" mà người xin nhập tịch và thường trú dài hạn phải đậu. Đọc phần dặn dò trước, rồi làm bài thi thử {qs.length > 25 ? 25 : qs.length} câu trong 45 phút như thi thật.</p>
+    <p class="muted lead">Bài thi "kiến thức cơ bản về đời sống chính trị, xã hội Síp" mà người xin nhập tịch và thường trú dài hạn phải đậu. Đọc phần dặn dò trước, rồi làm bài thi thử 25 câu trong 45 phút như thi thật. Phần dặn dò mở cho mọi người, phần thi thử dành cho thành viên Khu Học.</p>
 
     <div class="modes" role="tablist" aria-label="Chế độ">
       <button type="button" role="tab" data-m="learn" aria-selected="true">Tổng quan &amp; dặn dò</button>
@@ -72,6 +71,8 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
     </section>
 
     <section id="quiz" hidden aria-live="polite">
+      <div id="gate" class="gate" hidden></div>
+      <div id="qwrap" hidden>
       <div id="setup" class="setup">
         <h2>Làm bài thi thử</h2>
         <p class="muted">Câu hỏi bằng tiếng Việt để các bạn nắm kiến thức trước. Đề thật bằng tiếng Hy Lạp.</p>
@@ -79,7 +80,7 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
           <select id="q-mode"><option value="exam">Thi thử: 25 câu, 45 phút, chấm cuối bài</option><option value="practice">Luyện tập: biết đúng sai và giải thích ngay</option></select>
         </label>
         <label>Chủ đề
-          <select id="q-cat"><option value="">Tất cả chủ đề</option>{tkeys.map((k) => <option value={k}>{topics[k]} ({qs.filter((q) => q.t === k).length})</option>)}</select>
+          <select id="q-cat"><option value="">Tất cả chủ đề</option>{tkeys.map((k) => <option value={k}>{topics[k]}</option>)}</select>
         </label>
         <p class="best" id="best"></p>
         <button class="btn" type="button" id="start">Bắt đầu</button>
@@ -100,6 +101,7 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
         <p class="acts"><button class="btn" type="button" id="again">Làm bài mới</button><button class="btn ghost" type="button" id="wrongonly" hidden>Làm lại các câu sai</button></p>
         <ol id="review" class="review"></ol>
       </div>
+      </div>
     </section>
 
     <section class="faq">
@@ -109,7 +111,6 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
     <p class="note">Câu hỏi thi thử do Cuộc Sống Đảo Síp soạn để ôn tập, không phải đề thi thật. Lịch thi, phí và điểm đậu có thể thay đổi theo từng kỳ, các bạn đối chiếu thông báo mới nhất của Υπηρεσία Εξετάσεων trước khi đăng ký. Thấy câu nào chưa chính xác, các bạn nhắn mình sửa nhé.</p>
   </div>
 
-  <script type="application/json" id="qt-data" set:html={JSON.stringify(data)} />
 <style is:global>
     #learn[hidden], #quiz[hidden], #quiz [hidden] { display: none !important; }
     .lead { font-size: 17px; max-width: 62ch; }
@@ -159,6 +160,11 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
     .faq summary { cursor: pointer; padding: 12px 0; font-weight: 500; }
     .faq details p { margin: 0 0 14px; }
       .guide { max-width: 760px; }
+    .gate { margin: 20px 0; background: var(--stone); border-radius: var(--r-lg); padding: 18px 20px; max-width: 640px; }
+    .gate h3 { margin: 0 0 6px; } .gate p:last-child { margin-bottom: 0; }
+    .gate textarea { width: 100%; min-height: 76px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font: inherit; margin: 6px 0 12px; background: #fff; }
+    .gate .err { color: #B3261E; font-size: 14px; }
+    #qwrap[hidden], #gate[hidden] { display: none !important; }
     .guide h2 { font-size: 23px; margin: 32px 0 10px; }
     .guide ul { padding-left: 20px; } .guide li { margin: 6px 0; }
     .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 18px 0 6px; }
@@ -181,8 +187,18 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
   </style>
   <script>
     type Q = { id: number; t: string; q: string; a: string[]; c: number; why: string };
-    const DATA = JSON.parse(document.getElementById('qt-data')!.textContent!) as { topics: Record<string, string>; qs: Q[] };
-    const ALL = DATA.qs;
+    import { renderGate, loadHoc } from '../../lib/hoc';
+    let DATA: { topics: Record<string, string>; qs: Q[] } = { topics: {}, qs: [] };
+    let ALL: Q[] = [];
+    let opened = false;
+    async function openQuiz() {
+      if (opened) return; opened = true;
+      const ok = await renderGate($('gate'), '/hoc/quoc-tich/#thi-thu', 'làm bài thi thử');
+      if (!ok) { opened = false; return; }
+      const d = await loadHoc<typeof DATA>('qt-qs');
+      if (!d) { $('gate').hidden = false; $('gate').innerHTML = '<p>Chưa tải được câu hỏi, bạn thử lại sau ít phút nhé.</p>'; opened = false; return; }
+      DATA = d; ALL = d.qs; $('qwrap').hidden = false;
+    }
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
     const store = { get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch {} } };
     const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
@@ -191,6 +207,7 @@ const GR = [['Πρόεδρος της Δημοκρατίας', 'Tổng thống']
     function mode(m: string) {
       tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.m === m)));
       $('learn').hidden = m !== 'learn'; $('quiz').hidden = m !== 'quiz';
+      if (m === 'quiz') openQuiz();
       history.replaceState(null, '', m === 'quiz' ? '#thi-thu' : location.pathname);
     }
     tabs.forEach((t) => (t.onclick = () => mode(t.dataset.m!)));
