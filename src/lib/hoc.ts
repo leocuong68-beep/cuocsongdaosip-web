@@ -56,7 +56,7 @@ export async function renderGate(box: HTMLElement, back: string, what: string): 
       cached = null; renderGate(box, back, what);
     };
   } else if (s.status === 'pending') {
-    box.innerHTML = `<h3>${hi}Yêu cầu của bạn đang chờ duyệt</h3><p>Mình sẽ duyệt sớm nhất có thể. Cần gấp thì nhắn mình qua WhatsApp/Zalo +357 94 100 091.</p>`;
+    box.innerHTML = `<h3>${hi}Yêu cầu của bạn đang chờ duyệt</h3><p>Hồ sơ đủ thông tin thường được duyệt trong vài tiếng (ban ngày giờ Síp). Cần gấp thì nhắn mình qua WhatsApp/Zalo +357 94 100 091.</p>`;
   } else {
     box.innerHTML = `<h3>Tài khoản chưa được mở Khu Học</h3><p>Bạn nhắn mình qua WhatsApp/Zalo +357 94 100 091 nhé.</p>`;
   }
