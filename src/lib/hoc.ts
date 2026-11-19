@@ -32,4 +32,6 @@ export const GREEK_STAGES = [
   { id: 's0', name: 'Chặng 0 · Bảng chữ cái và phát âm' },
   { id: 'a1w1', name: 'A1 · Tuần 1 · Làm quen' },
   { id: 'a1w2', name: 'A1 · Tuần 2 · Đời sống hằng ngày' },
+  { id: 'a1w3', name: 'A1 · Tuần 3 · Nhà cửa, giấy tờ' },
+  { id: 'a1w4', name: 'A1 · Tuần 4 · Sức khoẻ, đi lại' },
 ];

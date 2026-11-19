@@ -10,7 +10,7 @@ export const AZ_LIST: AZ[] = [
   { letter: 'D', term: 'Du lịch, đi chơi', id: 'du-lich', line: 'Cuối tuần nhà mình hay đi đâu: biển, núi Troodos, Ayia Napa, phố cổ.', keys: ['có gì chơi', 'đi chơi', 'ayia napa', 'troodos', 'nhà thờ', 'cung thiên văn', 'lên núi'] },
   { letter: 'Đ', term: 'Định cư, thẻ thường trú', id: 'dinh-cu', line: 'Các con đường ở lại Síp dài hạn và những điều kiện cần biết.', keys: ['định cư', 'thẻ pr', 'thường trú', 'golden visa'] },
   { letter: 'G', term: 'Giá nhà, thị trường nhà đất', id: 'gia-nha', line: 'Giá nhà, số giao dịch, người nước ngoài mua nhiều ở đâu.', keys: ['giá nhà', 'nhà đất', 'mua bán nhà', 'nhà cũ'] },
-  { letter: 'H', term: 'Học tiếng Hy Lạp', id: 'hy-lap', line: 'Khu Học trên blog: từ bảng chữ cái tới trình độ thi chứng chỉ.', keys: ['tiếng hy lạp'], href: '/hoc/' },
+  { letter: 'H', term: 'Học tiếng Hy Lạp', id: 'hy-lap', line: 'Khu Học trên blog: bảng chữ cái và 4 tuần A1 đầu, bài mới thêm dần.', keys: ['tiếng hy lạp'], href: '/hoc/' },
   { letter: 'K', term: 'Khí hậu, thời tiết', id: 'khi-hau', line: 'Mùa hè nóng khô, mùa đông ấm, chuyện thiếu nước.', keys: ['khí hậu', 'thời tiết'] },
   { letter: 'L', term: 'Lương, việc làm', id: 'luong', line: 'Mức lương thực tế và ai được đi làm hợp pháp.', keys: ['lương', 'đi làm', 'làm việc'] },
   { letter: 'M', term: 'Mua nhà', id: 'mua-nha', line: 'Quy trình, hợp đồng, phí chuyển nhượng, nhà mới hay nhà cũ.', keys: ['mua nhà', 'hợp đồng mua', 'phí chuyển nhượng', 'sổ đỏ', 'vay mua'] },
