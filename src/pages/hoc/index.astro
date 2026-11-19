@@ -5,30 +5,38 @@ import { bySection } from '../../lib/db';
 const posts = await bySection('hoc-tap');
 ---
 <Base image="https://www.cuocsongdaosip.com/og/tieng-hy-lap.jpg" title="Học tiếng Hy Lạp, biển báo bằng lái, thi quốc tịch ở Đảo Síp" description="Học tiếng Hy Lạp cho người Việt ở Síp, kinh nghiệm thi bằng lái và thi quốc tịch Síp. Khu Học miễn phí, mở cho bạn đọc đã đăng ký và được duyệt." active="hoc">
-  <div class="wrap narrow">
+  <div class="wrap hoc">
     <p class="crumb"><a href="/">Trang chủ</a> / Học & thi</p>
     <h1>Học tiếng Hy Lạp, bằng lái, quốc tịch</h1>
     <p class="muted" style="font-size:17px">Mình soạn bộ bài tiếng Hy Lạp cho người Việt ở Síp: ai cần thi quốc tịch, hay chỉ muốn đi chợ, nói chuyện với hàng xóm đều học được. Khu Học miễn phí, mỗi tài khoản mình duyệt tay để giữ nhóm học nhỏ và nghiêm túc.</p>
 
-    <div id="st" class="state" aria-live="polite"><p class="muted">Đang kiểm tra tài khoản…</p></div>
 
-    <div class="courses">
-      <a class="course" id="c-greek" href="/hoc/tieng-hy-lap/">
-        <span class="tag">Đang mở, bản thử nghiệm</span>
-        <h2>Tiếng Hy Lạp</h2>
-        <p>Đang mở bảng chữ cái và 4 tuần đầu trình độ A1, mỗi ngày 30 phút: nghe, nói, đọc, viết, kèm kiến thức về Síp. Bài mới thêm dần, mục tiêu lâu dài là trình độ thi chứng chỉ.</p>
-      </a>
-      <a class="course" href="/hoc/quoc-tich/">
-        <span class="tag">Dành cho thành viên đã duyệt</span>
-        <h2>Thi thử quốc tịch</h2>
-        <p>Bài thi kiến thức chính trị, xã hội Síp: ôn ở đâu, cách thi, cách chấm, khi nào có kết quả, kèm đề thi thử 25 câu, 45 phút.</p>
-      </a>
-      <a class="course" href="/hoc/bang-lai/">
-        <span class="tag">Dành cho thành viên đã duyệt</span>
-        <h2>Biển báo và trắc nghiệm bằng lái</h2>
-        <p>170 biển báo giao thông Síp có tên tiếng Việt, học theo nhóm rồi làm trắc nghiệm luyện tập hoặc thi thử.</p>
-      </a>
-    </div>
+    <section class="study" aria-labelledby="study-h">
+      <h2 id="study-h">Chọn phần muốn học</h2>
+      <p>Một tài khoản, một lần duyệt là học được cả ba phần.</p>
+      <div class="study-cards">
+        <a class="sc main" href="/hoc/bang-lai/">
+          <img src="/hoc/bien-bao/Cyprus_road_sign_-_STOP.svg" alt="" width="64" height="64" />
+          <span class="t">Biển báo &amp; trắc nghiệm bằng lái</span>
+          <span class="d">170 biển báo giao thông Síp có tên tiếng Việt, học theo nhóm rồi làm trắc nghiệm luyện tập hoặc thi thử.</span>
+          <span class="go">Học biển báo</span>
+        </a>
+        <a class="sc" id="c-greek" href="/hoc/tieng-hy-lap/">
+          <span class="ab" aria-hidden="true">Αα</span>
+          <span class="t">Học tiếng Hy Lạp</span>
+          <span class="d">Bản thử nghiệm: bảng chữ cái và 4 tuần A1 đầu, mỗi ngày 30 phút. Nghe, nói, đọc, viết, kèm kiến thức về Síp.</span>
+          <span class="go">Vào học</span>
+        </a>
+        <a class="sc" href="/hoc/quoc-tich/">
+          <span class="ab" aria-hidden="true">CY</span>
+          <span class="t">Thi thử quốc tịch</span>
+          <span class="d">Ôn ở đâu, cách thi, cách chấm, khi nào có kết quả, kèm đề thi thử 25 câu trong 45 phút.</span>
+          <span class="go">Xem và thi thử</span>
+        </a>
+      </div>
+    </section>
+
+    <div id="st" class="state" aria-live="polite"><p class="muted">Đang kiểm tra tài khoản…</p></div>
 
     {posts.length > 0 && <><h2 style="margin-top:36px">Bài viết về học và thi</h2>{posts.map((p) => <PostRow p={p} showCat={false} />)}</>}
     <p class="note">Nội dung học là tài liệu tự soạn, đang được soát lại. Thông tin chính thức về các kỳ thi do cơ quan tổ chức thi công bố.</p>
@@ -39,13 +47,21 @@ const posts = await bySection('hoc-tap');
     .state :global(p:last-child) { margin-bottom: 0; }
     .state :global(textarea) { width: 100%; min-height: 76px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; font: inherit; margin: 6px 0 12px; background: #fff; }
     .state :global(.err) { color: #B3261E; font-size: 14px; }
-    .courses { display: grid; gap: 0; border-top: 1px solid var(--line); }
-    .course { display: block; padding: 18px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); }
-    .course h2 { font-size: 22px; margin: 8px 0 4px; }
-    .course p { margin: 0; color: var(--muted); font-size: 15.5px; }
-    a.course:hover h2 { color: var(--sea); }
-    .soon { opacity: .7; }
-    .tag.off { background: var(--stone); color: var(--muted); }
+    .hoc > p, .hoc > h1, .hoc .state, .hoc > h2, .hoc .note { max-width: 760px; }
+    .study { margin: 26px 0 8px; background: var(--sea); border-radius: var(--r-lg); padding: 22px 18px 20px; color: #E3EEF4; }
+    .study h2 { color: #fff; margin: 0 0 4px; }
+    .study > p { margin: 0 0 16px; font-size: 15.5px; }
+    .study-cards { display: grid; gap: 10px; }
+    @media (min-width: 800px) { .study { padding: 28px; } .study-cards { grid-template-columns: 1.3fr 1fr 1fr; } }
+    .sc { display: grid; grid-template-columns: 56px 1fr; grid-template-rows: auto auto auto; column-gap: 14px; row-gap: 4px; align-items: start; background: #fff; color: var(--ink); border-radius: 14px; padding: 16px; text-decoration: none; }
+    .sc img, .sc .ab { grid-row: 1 / span 3; width: 56px; height: 56px; }
+    .sc .ab { display: grid; place-items: center; border-radius: 12px; background: var(--stone); color: var(--sea); font-family: var(--display); font-weight: 700; font-size: 22px; }
+    .sc .t { font-family: var(--display); font-weight: 600; font-size: 18.5px; line-height: 1.25; }
+    .sc .d { font-size: 14.5px; color: var(--muted); line-height: 1.45; }
+    .sc .go { font-size: 14.5px; font-weight: 500; color: var(--sea); margin-top: 4px; }
+    .sc.main { box-shadow: inset 0 0 0 2px var(--copper); }
+    .sc.main .go { color: var(--copper); }
+    .sc:hover .t { color: var(--sea); }
   </style>
   <script>
     import { hocState, requestAccess } from '../../lib/hoc';
